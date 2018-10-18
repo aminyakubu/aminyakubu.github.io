@@ -5,3 +5,31 @@ title: "Holy cow!"
 ### I have a webpage!
 
 And I can put all kinds of stuff on it!
+
+### Add some links
+
+I like [google](https://google.com)
+
+I can link directly to my [about page](about.html)
+
+### Picture of peace
+
+Ain't this great
+
+<img src = "images/Screen Shot 2018-10-18 at 10.40.41 AM.png" style="width:75%">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
