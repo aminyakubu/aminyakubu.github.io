@@ -9,6 +9,9 @@ navbar:
       href: mailto:<you@youremail.com>
     - icon: fa-github fa-lg
       href: http://github.com/aminyakubu/
+  left:
+    - text: "Dashboard"
+      href: dashboard_template.html
 output:
   html_document:
     theme: flatly
