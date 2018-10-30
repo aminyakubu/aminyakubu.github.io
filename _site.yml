@@ -12,6 +12,8 @@ navbar:
   left:
     - text: "Dashboard"
       href: dashboard_template.html
+    - text: "NY NOAA"
+      href: weather.html
 output:
   html_document:
     theme: flatly

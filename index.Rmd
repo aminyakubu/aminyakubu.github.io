@@ -9,7 +9,7 @@ title: "Amin Yakubu"
 MPH candidate in Advanced Epidemiology, Columbia University | AI Enthusiast <br>
 
 
-<br><img src="images/amin.jpg" alt="amin" style="width:65%; border:10px solid"><br>
+<br><img src="images/amin.jpg" alt="amin" style="width:45%; border:5px solid"><br>
 
 
 #### About

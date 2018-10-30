@@ -1,0 +1,80 @@
+---
+title: "NY NOAA"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+
+library(flexdashboard)
+library(tidyverse)
+library(viridis)
+library(p8105.datasets)
+library(plotly)
+
+```
+
+```{r}
+
+data("ny_noaa")
+
+set.seed(1)
+
+noaa_df = ny_noaa %>% 
+  mutate(month = months.Date(date, abbreviate = TRUE),
+         day = chron::days(date),
+         year = chron::years(date),
+         tmax = (as.numeric(tmax))/10,
+         tmin = (as.numeric(tmin))/10,
+         prcp = prcp/10)  %>% 
+  sample_n(100000)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+hex = ggplot(noaa_df, aes(x = tmin, y = tmax)) +
+  geom_hex(aes()) +
+  theme(legend.position = "right") + 
+  labs(
+    x = "Minimum temperature (C)",
+    y = "Maximum temperature (C)",
+    title = "Hexagonal heatmap showing the distribution of maximum and minimum temperatures",
+    caption = "NOAA 2017"
+  )
+
+ggplotly(hex)
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+my_boxes = noaa_df %>% 
+  filter(snow > 0 & snow < 100) %>% 
+  ggplot(aes(x = year, y = snow, fill = year)) +
+  geom_boxplot(alpha = 0.3) +
+  theme(legend.position = "none", 
+        axis.text.x = element_text(angle = 80, hjust = 1, size = 8)) + 
+  labs(
+    x = "Year",
+    y = "Snowfall (mm)",
+    title = "Boxplot showing average distribution of snowfall per year"
+  )
+
+ggplotly(my_boxes)
+```
+
+### Chart C
+
+```{r}
+
+```
+
