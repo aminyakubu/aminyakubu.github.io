@@ -1,40 +1,29 @@
 ---
-title: "Holy cow!"
+title: "Amin Yakubu"
 ---
 
-### I have a webpage!
+<link rel="stylesheet" href="styles.css" type="text/css">
+<link rel="stylesheet" href="academicons/css/academicons.min.css"/>
+<link rel="apple-touch-icon" href="/images/JG_transparent.png" >
 
-And I can put all kinds of stuff on it!
-
-### Add some links
-
-I like [google](https://google.com)
-
-I can link directly to my [about page](about.html)
-
-### Picture of peace
-
-Ain't this great
-
-<img src = "images/Screen Shot 2018-10-18 at 10.40.41 AM.png" style="width:75%">
-
-### I can add code
-
-here is my [code](code.html)
+MPH candidate in Advanced Epidemiology, Columbia University | AI Enthusiast <br>
 
 
+<br><img src="images/amin.jpg" alt="amin" style="width:65%; border:10px solid"><br>
 
 
+#### About
 
+Graduate Teaching Assistant with a demonstrated history of working in the higher education industry. Skilled in SAS, R, Python, SQL and Statistical Data Analysis. Interested in Biostatistics, Epidemiology & Data Science. Strong education professional with a Master of Public Health - MPH focused in Advanced Epidemiology from Columbia University in the City of New York.
 
+<br>
 
+#### Contact Information
 
+Amin Yakubu
+[Department of Epidemiology](http://www.mailman.columbia.edu/academic-departments/epidemiology)  
+[Columbia Mailman School of Public Health](http://www.mailman.columbia.edu/)  
+50 Haven avenue B - 78  
+New York, New York 10032  
 
-
-
-
-
-
-
-
-
+Email: [a.yakubu@columbia.edu](mailto:a.yakubu@columbia.edu)  
