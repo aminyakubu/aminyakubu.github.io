@@ -17,6 +17,10 @@ navbar:
       href: whpaygap.html
   - text: Curriculum vitae
     href: about.html
+  - icon: fa-linkedin fa-lg
+    href: https://www.linkedin.com/in/aminyakubu/
+  - icon: fa-twitter fa-lg
+    href: https://twitter.com/iamaminyakubu
   - icon: fa-envelope fa-lg
     href: mailto:<a.yakubu@columbia.edu>
   - icon: fa-github fa-lg

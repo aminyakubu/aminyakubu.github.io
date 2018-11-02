@@ -13,6 +13,7 @@ library(tidyverse)
 library(viridis)
 library(p8105.datasets)
 library(plotly)
+library(ggridges)
 
 ```
 
@@ -54,20 +55,20 @@ ggplotly(hex)
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Chart B
+### Chart B: Average distribution of snowfall from 1981 - 2010
 
 ```{r}
 my_boxes = noaa_df %>% 
-  filter(snow > 0 & snow < 100) %>% 
-  ggplot(aes(x = year, y = snow, fill = year)) +
-  geom_boxplot(alpha = 0.3) +
-  theme(legend.position = "none", 
-        axis.text.x = element_text(angle = 80, hjust = 1, size = 8)) + 
+  filter(month %in% c("Nov", "Dec", "Jan", "Feb", "Mar")) %>% 
+  mutate(month = forcats::fct_relevel(month, c("Nov", "Dec", "Jan", "Feb", "Mar"))) %>% 
+  group_by(year, month) %>% 
+  summarize(average_snow = mean(snow, na.rm = TRUE)) %>% 
+  ggplot(aes(x = month, y = average_snow, fill = month)) + geom_boxplot() +
+  theme(legend.position = "none") + 
   labs(
     x = "Year",
-    y = "Snowfall (mm)",
-    title = "Average distribution of snowfall per year"
-  )
+    y = "Average snowfall (in)"
+  ) + viridis::scale_fill_viridis(discrete = TRUE)
 
 ggplotly(my_boxes)
 ```
