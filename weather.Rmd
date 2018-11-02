@@ -75,6 +75,15 @@ ggplotly(my_boxes)
 ### Chart C
 
 ```{r}
+jan = noaa_df %>% 
+  filter(month %in% c("Jan")) %>% 
+  ggplot(aes(x = year, y = tmax, color = year)) +
+  facet_grid(~month) +
+  geom_boxplot() +
+  theme(legend.position = "none", 
+        axis.text.x = element_text(angle = 80, hjust = 1, size = 8)) + 
+  labs(title = "January distribution")
 
+ggplotly(jan)
 ```
 
