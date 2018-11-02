@@ -8,6 +8,8 @@ output:
 
 <br> </br>
 
+<br><img src="images/mailman_epi_logo/mailman_epi_4c_horiz.eps" alt="amin" style="width:100%; border:5px"><br>
+
 #### Alcohol consumption demonstrates a protective effect towards hypertension – Assessing the association between alcohol use and high blood pressure in NHANES 2009-2010. 
 
 ### Background
