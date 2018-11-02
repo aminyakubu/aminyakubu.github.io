@@ -9,9 +9,9 @@ title: ""
 
 <link rel="stylesheet" href="styles.css" type="text/css">
 <link rel="stylesheet" href="academicons/css/academicons.min.css"/>
-<link rel="apple-touch-icon" href="/images/logo.png" >
+<link rel="icon" type="image/png" href="/images/logo.png" />
 
-MPH candidate in Advanced Epidemiology, Columbia University | AI Enthusiast <br>
+MPH candidate in Advanced Epidemiology, Columbia University | AI Enthusiast. <br>
 
 
 <br><img src="images/amin.jpg" alt="amin" style="width:45%; border:5px solid"><br>
