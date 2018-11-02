@@ -65,8 +65,8 @@ my_boxes = noaa_df %>%
   ggplot(aes(x = month, y = average_snow, fill = month)) + geom_boxplot() +
   theme(legend.position = "none") + 
   labs(
-    x = "Year",
-    y = "Average snowfall (in)"
+    x = "Month",
+    y = "Distribution of snowfall"
   ) + viridis::scale_fill_viridis(discrete = TRUE)
 
 ggplotly(my_boxes)
@@ -78,10 +78,10 @@ ggplotly(my_boxes)
 jul = noaa_df %>% 
   filter(month %in% c("Jul")) %>% 
   group_by(year, month) %>% 
-  summarize(average_max_temp = mean(tmax, na.rm = TRUE),
-            average_min_temp = mean(tmin, na.rm = TRUE)) %>% 
-  gather(key = statistic, value = value, average_max_temp:average_min_temp) %>% 
-  ggplot(aes(x = year, y = value, color = statistic, group = statistic)) + geom_point() + 
+  summarize(max_temp = mean(tmax, na.rm = TRUE),
+            min_temp = mean(tmin, na.rm = TRUE)) %>% 
+  gather(key = stat, value = average_value, max_temp:min_temp) %>% 
+  ggplot(aes(x = year, y = average_value, color = stat, group = stat)) + geom_point() + 
   theme( 
         axis.text.x = element_text(angle = 80, hjust = 1, size = 8)) + viridis::scale_color_viridis(discrete = TRUE)
 

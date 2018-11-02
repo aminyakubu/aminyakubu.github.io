@@ -5,10 +5,10 @@ navbar:
   right:
   - text: Projects
     menu:
-    - text: Alcohol & Hypertension
-      href: alchohol_hypertension.html
     - text: NY NOAA
       href: noaa.html
+    - text: Alcohol & Hypertension
+      href: alchohol_hypertension.html
     - text: NYC AirBnB
       href: airbnb.html
     - text: Baltimore Inner Harbor Water Wheel

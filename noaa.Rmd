@@ -24,4 +24,9 @@ The dataset used contains the following variables.
 
  Click [here](weather.html) to view the [dashboard](weather.html) of the visualized data.
  
- The [dashboard](weather.html)
+ <br>The Chart A in the [dashboard](weather.html) shows the average distribution of maximum and minimum temperatures from 1981 to 2010. <br>
+
+<br>Chart B shows the average distribution of snowfall (in inches) from 1981 to 2010 for the months of November, December, January, February and March. The chart shows that on average, there is more snowfall in January than any other month. </br>
+
+<br>July is known to be the hottest month in New York. In chart C, we see the distribution of average maximum and minimun temperature for the month of July from 1981 - 2018. We see a cyclical pattern for both maximum and minimum temperatures for the month of July. </br>
+
