@@ -1,19 +1,32 @@
-name: "Yay internet!"
-output_dir: "."
+name: "Amin Yakubu"
+output_dir: '.'
 navbar:
-  title: "Home"
+  title: Home
   right:
-    - text: "About"
-      href: about.html
-    - icon: fa-envelope fa-lg
-      href: mailto:<you@youremail.com>
-    - icon: fa-github fa-lg
-      href: http://github.com/aminyakubu/
-  left:
-    - text: "Projects"
-      href: projects.html
-    - text: "NY NOAA"
-      href: weather.html
+  - text: Projects
+    menu:
+    - text: Alcohol & Hypertension
+      href: alchohol_hypertension.html
+    - text: NY NOAA
+      href: noaa.html
+    - text: NYC AirBnB
+      href: airbnb.html
+    - text: Baltimore Inner Harbor Water Wheel
+      href: trashwheel.html
+    - text: White House Gender Pay Gap
+      href: whpaygap.html
+  - text: Curriculum vitae
+    href: about.html
+  - icon: fa-envelope fa-lg
+    href: mailto:<a.yakubu@columbia.edu>
+  - icon: fa-github fa-lg
+    href: http://github.com/aminyakubu/
 output:
   html_document:
-    theme: flatly
+    theme: cosmo
+    include:
+      in_header: header.html
+      after_body: footer.html
+    css: styles.css
+    lib_dir: site_libs
+    self_contained: no

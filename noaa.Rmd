@@ -1,0 +1,15 @@
+---
+title: ""
+---
+
+<br></br>
+
+<detail>
+
+#### New York weather data from National Oceanic and Atmospheric Administration
+
+</detail>
+
+The National Oceanic and Atmospheric Administration agency within the United States Department of Commerce that focuses on the conditions of the oceans, major waterways, and the atmosphere
+
+ Click [here](weather.html) to view the [dashboard](weather.html) of the visualized data.

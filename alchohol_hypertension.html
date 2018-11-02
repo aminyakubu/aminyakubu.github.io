@@ -19,9 +19,15 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 <script defer src="https://use.fontawesome.com/releases/v5.0.3/js/all.js"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/v4-shims.js"></script>
@@ -170,6 +176,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -239,9 +340,37 @@ $(document).ready(function () {
 </div>
 
 
-<div id="aminyakubu.github.io" class="section level1">
-<h1>aminyakubu.github.io</h1>
-<p>website</p>
+<p><br> </br></p>
+<div id="alcohol-consumption-demonstrates-a-protective-effect-towards-hypertension-assessing-the-association-between-alcohol-use-and-high-blood-pressure-in-nhanes-2009-2010." class="section level4">
+<h4>Alcohol consumption demonstrates a protective effect towards hypertension – Assessing the association between alcohol use and high blood pressure in NHANES 2009-2010.</h4>
+</div>
+<div id="background" class="section level3">
+<h3>Background</h3>
+<p>Alcohol consumption and has been shown to have diverse and complex effects on cardiovascular disease and it’s risk factors, including hypertension. While the short-term effect of alcohol on blood pressure is well established, the risk of hypertension comparing those who drink and don’t drink is unknown. The goal of the analysis was to examine whether individuals that consume alcohol have higher risk of hypertension, and whether this association is confounded/modified by smoking, race, or gender.</p>
+</div>
+<div id="methods" class="section level3">
+<h3>Methods</h3>
+<p>Our data source was the NHANES 2009-2010 data set. Our main exposure was alcohol consumption, a binary variable where drinkers were defined as having &gt;12 drinks/year (moderate/regular) or having &lt;12 drinks/year (non/light drinkers). Hypertension was defined as having a systolic measure &gt;140, or diastolic measure &gt;90, or currently taking hypertension medication. Data was also collected on demographic variables such as age, gender and race. Logistic regression was used to determine an association between alcohol consumption and hypertension. Additionally, we adjusted for race/ethnicity and included gender as a modifier.</p>
+</div>
+<div id="findings" class="section level3">
+<h3>Findings</h3>
+<p>2607 subjects were examined, with subjects being excluded for missing or extreme variables. Race was determined to be a confounder and gender was found to modify the association. Among females, the odds of hypertension for drinkers was 0.523 times the odds of hypertension for nondrinkers after adjusting for race (95% CI:0.419,0.653). Among males, the odds of hypertension for drinkers was 0.801 times the odds of hypertension for nondrinkers after adjusting for race (95% CI:0.669,0.960).</p>
+</div>
+<div id="interpretation" class="section level3">
+<h3>Interpretation</h3>
+<p>While there was a significant association between alcohol consumption and hypertension in our model, the odds of hypertension were found to be higher for non-drinkers, the opposite of our original hypothesis.</p>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>Alcohol consumption was shown to have a protective effect towards the outcome of hypertension in the NHANES cohort.</p>
+</div>
+<div id="tables" class="section level3">
+<h3>Tables</h3>
+<p><br><img src="images/table_1.png" alt="amin" style="width:100%; border:5px "><br></p>
+<p><br><img src="images/table_2.png" alt="amin" style="width:100%; border:5px "><br></p>
+<center>
+You can find the data and SAS code <a href="https://github.com/aminyakubu/alcohol_vs_hypertension_prj/blob/master/program_alcohol_vs_hp.sas">here</a>.
+</center>
 </div>
 
 <br><br>
@@ -251,6 +380,8 @@ $(document).ready(function () {
 </footer>
 
 
+</div>
+</div>
 
 </div>
 

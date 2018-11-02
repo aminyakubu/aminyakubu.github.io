@@ -1,0 +1,118 @@
+---
+title: "WH Gender Pay Gap"
+---
+
+---
+title: "2017 White House Employee Salary Analysis - Gender pay gap"
+author: "Amin Yakubu"
+date: "10/6/2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .9,
+  out.width = "90%"
+)
+```
+
+Loading tidyverse package and setting global options
+```{r}
+library(tidyverse)
+library(knitr)
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+theme_set(theme_bw() + theme(legend.position = "bottom"))
+```
+
+```{r}
+library(tidyverse)
+```
+
+Reading and cleaning the dataset 
+```{r}
+wh_pay = read_csv("./data//white_house_2017_salaries_clean.csv") %>% 
+  select(-(starts_with("X")))
+```
+
+In 2017, the White House spent a total of $ `r sum(wh_pay$SALARY)` on the salaries of `r nrow(wh_pay)` employees. 
+
+Below is a table showing the top 10 earners 
+
+```{r}
+wh_pay %>% 
+  top_n(1, SALARY) %>% 
+  arrange(desc(SALARY)) %>% 
+  knitr::kable()
+
+wh_pay %>% 
+  filter(SALARY > 100000) %>% 
+  group_by(GENDER) %>% 
+  summarize(NUMBER = n()) %>% 
+  knitr::kable()
+```
+
+Of the 153 staff earning more than $100,000 only 51 of them are female. 
+
+```{r}
+wh_pay %>% 
+  filter(SALARY < 100000) %>% 
+  group_by(GENDER) %>% 
+  summarize(NUMBER = n()) %>% 
+  knitr::kable()
+```
+
+Of the remaining 224 that earn less than $100,000, 115 of them are female. This include Ivanka Trump and her husband, Jared Kusner, and Reed Cordish all of whom have a salary of 0. Gary Cohn, millionare former CEO of Goldman Sachs has a salary of 30,000. 
+
+```{r}
+wh_pay %>%
+  group_by(GENDER) %>%
+  summarize(n = n()) %>% knitr::kable()
+
+wh_pay %>% 
+  group_by(TITLE, GENDER) %>% 
+  summarize(n = n()) %>% 
+  arrange(desc(n)) %>% 
+  knitr::kable()
+```
+
+```{r}
+wh_pay %>% 
+  group_by(GENDER) %>% 
+  summarize(n = n(),
+            mean = mean(SALARY),
+            median = median(SALARY)) %>% knitr::kable()
+```
+
+```{r}
+wh_pay %>%
+  group_by(GENDER) %>%
+  summarize(n = n(),
+            mean = mean(SALARY),
+            median = median(SALARY))  %>%
+  ggplot(aes(x = GENDER, y = mean, fill = GENDER)) + 
+  geom_col(width = 0.5) 
+wh_pay %>%
+  group_by(GENDER) %>%
+  summarize(n = n(),
+            mean = mean(SALARY),
+            median = median(SALARY))  %>%
+  ggplot(aes(x = GENDER, y = median, fill = GENDER)) + 
+  geom_col(width = 0.5) 
+ggplot(wh_pay, aes(x = GENDER, y = SALARY, fill = GENDER)) +
+  geom_boxplot()
+ggplot(wh_pay, aes(x = STATUS, fill = GENDER)) + 
+  geom_bar(width = 0.5)
+ggplot(wh_pay, aes(x = SALARY, fill = GENDER)) + 
+  geom_density(alpha = .4, adjust = .5, color = "blue")
+ggplot(wh_pay, aes(x = SALARY, fill = GENDER)) + 
+  geom_histogram(position = "dodge") 
+```

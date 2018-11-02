@@ -15,7 +15,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -25,6 +25,9 @@
 <link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
 <script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
 <script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+<script defer src="https://use.fontawesome.com/releases/v5.0.3/js/all.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.0/js/v4-shims.js"></script>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -71,6 +74,7 @@ h6 {
 }
 </style>
 
+<link rel="stylesheet" href="styles.css" type="text/css" />
 
 </head>
 
@@ -105,34 +109,34 @@ button.code-folding-btn:focus {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 60px;
+  padding-top: 51px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 
 .section h2 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h3 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h4 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h5 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 .section h6 {
-  padding-top: 65px;
-  margin-top: -65px;
+  padding-top: 56px;
+  margin-top: -56px;
 }
 </style>
 
@@ -183,19 +187,38 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-  <a href="projects.html">Projects</a>
-</li>
-<li>
-  <a href="weather.html">NY NOAA</a>
-</li>
+        
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-  <a href="about.html">About</a>
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="alchohol_hypertension.html">Alcohol &amp; Hypertension</a>
+    </li>
+    <li>
+      <a href="noaa.html">NY NOAA</a>
+    </li>
+    <li>
+      <a href="airbnb.html">NYC AirBnB</a>
+    </li>
+    <li>
+      <a href="trashwheel.html">Baltimore Inner Harbor Water Wheel</a>
+    </li>
+    <li>
+      <a href="whpaygap.html">White House Gender Pay Gap</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="mailto:&lt;you@youremail.com&gt;">
+  <a href="about.html">Curriculum vitae</a>
+</li>
+<li>
+  <a href="mailto:&lt;a.yakubu@columbia.edu&gt;">
     <span class="fa fa-envelope fa-lg"></span>
      
   </a>
@@ -220,12 +243,39 @@ $(document).ready(function () {
 </div>
 
 
-<div id="about-this-site" class="section level3">
-<h3>About this site</h3>
-<p>Sometimes you need to say a bit about the site – how it was made, where it’s hosted, where the source code can be found.</p>
-<p>If this is for a project or analysis, I recommend giving some details about the R package versions that you used to create the content.</p>
+<div id="education" class="section level3">
+<h3>Education</h3>
+<p>
+<p><strong>Columbia University Mailman School of Public Health ’19</strong> <br> Master of Public Health (MPH) Concentration:Advanced Epidemiology</p>
+<strong>I.M. Sechenov First Moscow State Medical University ’17</strong> Doctor of Medicine (MD)
+</p>
+</div>
+<div id="certification" class="section level3">
+<h3>Certification</h3>
+<p>
+<p>• SAS Certified Base Programmer for SAS 9 (Verification number: B431ETW12MBQQEKV) <br> • CITI Program (Human Research) <br> • Good Clinical Practices Certification</p>
+</p>
+</div>
+<div id="experience" class="section level3">
+<h3>Experience</h3>
+<p>
+<div id="graduate-intern---human-research-training-program" class="section level5">
+<h5>Graduate Intern - Human Research Training Program</h5>
+<strong>New York City Department of Health and Mental Hygiene</strong> <br> Bureau of Chronic Disease Prevention and Tobacco Control <br> Healthy Living by Design <br> • Conducted intercept surveys and observational studies at assigned sites prior to, and following project implementation <br> • Compiled and organize data and observations into an electronic database <br> • Assisted in data analysis and drafting of reports as needed <br>
+</p>
+<p>
+</div>
+<div id="graduate-research-fellow-may-august-2018" class="section level5">
+<h5>Graduate Research Fellow, May – August, 2018 <br></h5>
+<p><strong>Global Healthy Living Foundation, New York, NY </strong> <br> • Conducted analysis of data from various research for publications, and patient-reported outcome data to support advocacy efforts and comparative effectiveness studies using SAS <br> • Used statistical techniques for hypothesis testing to validate data and interpretations <br> • Social media (Facebook &amp; Twitter) data mining/scrapping using Python for qualitative analysis (Sentiment analysis, word cloud) <br> • Successfully analyzed and interpreted PainSpot (painspot.com) data to draw conclusions for managerial data intelligence and strategy using SAS <br> • Assisted in the development, evaluation and dissemination of patient-centered studies related to ArthritisPower patient-powered research network <br> • Recruit patient, academic, and industry partners for collaborative advocacy and research initiatives • Independently researched health literature and journal publications to identify important patient-centered insights for select chronic illness <br> • Abstract writing for publication <br></p>
+</div>
 </div>
 
+<br><br>
+<footer>
+   <br>
+  <p class="copyright text-muted" align="center">Copyright &copy; 2018 Amin Yakubu</p>
+</footer>
 
 
 

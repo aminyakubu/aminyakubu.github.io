@@ -2,8 +2,45 @@
 title: "About"
 ---
 
-### About this site
+### Education 
+<p>**Columbia University Mailman School of Public Health '19** <br>
+Master of Public Health (MPH) 
+Concentration:Advanced Epidemiology 
 
-Sometimes you need to say a bit about the site -- how it was made, where it's hosted, where the source code can be found. 
+**I.M. Sechenov First Moscow State Medical University '17**
+Doctor of Medicine (MD) 
+</p>
 
-If this is for a project or analysis, I recommend giving some details about the R package versions that you used to create the content.
+### Certification
+<p>
+•	SAS Certified Base Programmer for SAS 9 (Verification number: B431ETW12MBQQEKV) <br>
+•	CITI Program (Human Research) <br>
+•	Good Clinical Practices Certification
+
+</p>
+
+### Experience 
+
+<p>
+##### Graduate Intern - Human Research Training Program                                                          
+**New York City Department of Health and Mental Hygiene** <br>
+Bureau of Chronic Disease Prevention and Tobacco Control <br>
+Healthy Living by Design <br>
+•	Conducted intercept surveys and observational studies at assigned sites prior to, and following project implementation <br>
+•	Compiled and organize data and observations into an electronic database <br>
+•	Assisted in data analysis and drafting of reports as needed <br>
+</p>
+
+<p>
+
+##### Graduate Research Fellow, May – August, 2018 <br>
+**Global Healthy Living Foundation, New York, NY ** <br>
+•	Conducted analysis of data from various research for publications, and patient-reported outcome data to support advocacy efforts and comparative effectiveness studies using SAS <br>
+•	Used statistical techniques for hypothesis testing to validate data and interpretations <br>
+•	Social media (Facebook & Twitter) data mining/scrapping using Python for qualitative analysis (Sentiment analysis, word cloud) <br>
+•	Successfully analyzed and interpreted PainSpot (painspot.com) data to draw conclusions for managerial data intelligence and strategy using SAS <br>
+•	Assisted in the development, evaluation and dissemination of patient-centered studies related to ArthritisPower patient-powered research network <br>
+•	Recruit patient, academic, and industry partners for collaborative advocacy and research initiatives
+•	Independently researched health literature and journal publications to identify important patient-centered insights for select chronic illness <br>
+•	Abstract writing for publication <br>
+
