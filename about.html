@@ -19,6 +19,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -173,6 +176,101 @@ $(document).ready(function () {
 
 
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
 
 
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
@@ -250,6 +348,10 @@ $(document).ready(function () {
 <strong>I.M. Sechenov First Moscow State Medical University ’17</strong> Doctor of Medicine (MD)
 </p>
 </div>
+<div id="skills" class="section level3">
+<h3>Skills</h3>
+<p>SAS<br> R<br> SQL<br> Python (with the help of Google)</p>
+</div>
 <div id="certification" class="section level3">
 <h3>Certification</h3>
 <p>
@@ -258,9 +360,13 @@ $(document).ready(function () {
 </div>
 <div id="experience" class="section level3">
 <h3>Experience</h3>
+<div id="graduate-research-assistant-february-2018---present" class="section level5">
+<h5>Graduate Research Assistant February, 2018 - Present <br></h5>
+<p><strong>Database Shared Resource, Herbert Irving Comprehensive Cancer Center, Columbia University Medical Center</strong> <br> • Literature review of topics of research interest <br> • Medical data entry of pancreatic cancer patients into Collaborative Islet Transplant Registry (CITR) <br> • Cleaning, matching and classifying data of pancreatic cancer patients <br> • Entry of adverse events associated Autologous Islet Cell Transplant procedure <br></p>
 <p>
-<div id="graduate-intern---human-research-training-program" class="section level5">
-<h5>Graduate Intern - Human Research Training Program</h5>
+</div>
+<div id="graduate-intern---human-research-training-program-september---october-2018" class="section level5">
+<h5>Graduate Intern - Human Research Training Program September - October, 2018</h5>
 <strong>New York City Department of Health and Mental Hygiene</strong> <br> Bureau of Chronic Disease Prevention and Tobacco Control <br> Healthy Living by Design <br> • Conducted intercept surveys and observational studies at assigned sites prior to, and following project implementation <br> • Compiled and organize data and observations into an electronic database <br> • Assisted in data analysis and drafting of reports as needed <br>
 </p>
 <p>
@@ -278,6 +384,8 @@ $(document).ready(function () {
 </footer>
 
 
+</div>
+</div>
 
 </div>
 

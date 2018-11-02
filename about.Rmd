@@ -1,5 +1,9 @@
 ---
 title: "About"
+output:
+  html_document: 
+    toc: true
+    toc_float: true
 ---
 
 ### Education 
@@ -11,6 +15,14 @@ Concentration:Advanced Epidemiology
 Doctor of Medicine (MD) 
 </p>
 
+### Skills
+
+SAS<br>
+R<br>
+SQL<br>
+Python (with the help of Google)
+
+
 ### Certification
 <p>
 •	SAS Certified Base Programmer for SAS 9 (Verification number: B431ETW12MBQQEKV) <br>
@@ -21,8 +33,16 @@ Doctor of Medicine (MD)
 
 ### Experience 
 
+##### Graduate Research Assistant February, 2018 - Present <br>
+**Database Shared Resource, Herbert Irving Comprehensive Cancer Center, Columbia University Medical Center** <br>
+•	Literature review of topics of research interest <br>
+•	Medical data entry of pancreatic cancer patients into Collaborative Islet Transplant Registry (CITR) <br>
+•	Cleaning, matching and classifying data of pancreatic cancer patients <br>
+•	Entry of adverse events associated Autologous Islet Cell Transplant procedure <br>
+
+
 <p>
-##### Graduate Intern - Human Research Training Program                                                          
+##### Graduate Intern - Human Research Training Program September - October, 2018                                                         
 **New York City Department of Health and Mental Hygiene** <br>
 Bureau of Chronic Disease Prevention and Tobacco Control <br>
 Healthy Living by Design <br>

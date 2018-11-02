@@ -25,6 +25,8 @@ Loading tidyverse package and setting global options
 ```{r}
 library(tidyverse)
 library(knitr)
+library(kableExtra)
+library(plotly)
 knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = .6,
@@ -33,9 +35,6 @@ knitr::opts_chunk$set(
 theme_set(theme_bw() + theme(legend.position = "bottom"))
 ```
 
-```{r}
-library(tidyverse)
-```
 
 Reading and cleaning the dataset 
 ```{r}
@@ -45,21 +44,31 @@ wh_pay = read_csv("./data//white_house_2017_salaries_clean.csv") %>%
 
 In 2017, the White House spent a total of $ `r sum(wh_pay$SALARY)` on the salaries of `r nrow(wh_pay)` employees. 
 
-Below is a table showing the top 10 earners 
+Below is a table showing the top earner in the White House for 2017
 
 ```{r}
 wh_pay %>% 
   top_n(1, SALARY) %>% 
   arrange(desc(SALARY)) %>% 
-  knitr::kable()
+  knitr::kable() %>% 
+  kable_styling(bootstrap_options = "striped", full_width = T)
 
-wh_pay %>% 
+```
+
+### Distribution of top earnings
+<br>
+
+```{r}
+salary = wh_pay %>% 
   filter(SALARY > 100000) %>% 
   group_by(GENDER) %>% 
   summarize(NUMBER = n()) %>% 
-  knitr::kable()
+  ggplot(aes(x = GENDER, y = NUMBER, fill = GENDER)) + geom_col(width = .6) + viridis::scale_fill_viridis(discrete = TRUE)
+
+ggplotly(salary)
 ```
 
+</br>
 Of the 153 staff earning more than $100,000 only 51 of them are female. 
 
 ```{r}
@@ -67,10 +76,11 @@ wh_pay %>%
   filter(SALARY < 100000) %>% 
   group_by(GENDER) %>% 
   summarize(NUMBER = n()) %>% 
-  knitr::kable()
+  knitr::kable() %>% 
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right")
 ```
 
-Of the remaining 224 that earn less than $100,000, 115 of them are female. This include Ivanka Trump and her husband, Jared Kusner, and Reed Cordish all of whom have a salary of 0. Gary Cohn, millionare former CEO of Goldman Sachs has a salary of 30,000. 
+<p> <br> Of the remaining 224 that earn less than $100,000, 115 of them are female. This include Ivanka Trump and her husband, Jared Kusner, and Reed Cordish all of whom have a salary of 0. Gary Cohn, millionare former CEO of Goldman Sachs has a salary of 30,000. </br> </p>
 
 ```{r}
 wh_pay %>%
