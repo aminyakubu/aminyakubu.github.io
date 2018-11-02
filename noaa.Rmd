@@ -4,7 +4,7 @@ title: ""
 
 <br></br>
 
-<detail>
+<detail> 
 
 #### New York weather data from National Oceanic and Atmospheric Administration 
 
