@@ -6,7 +6,7 @@ title: ""
 
 <detail>
 
-#### New York weather data from National Oceanic and Atmospheric Administration
+#### New York weather data from National Oceanic and Atmospheric Administration 
 
 </detail>
 
