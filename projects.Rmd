@@ -4,9 +4,11 @@ title: "Projects"
 
 ### Projects
 
-•	Alcohol consumption demonstrates a protective effect towards hypertension – Assessing the association between alcohol use and high blood pressure in NHANES 2009-2010. You can find the SAS code for the data analysis [here](https://github.com/aminyakubu/alcohol_vs_hypertension_prj/blob/master/program_alcohol_vs_hp.sas)
+•	Alcohol consumption demonstrates a protective effect towards hypertension – Assessing the association between alcohol use and high blood pressure in NHANES 2009-2010. You can find the SAS code for the data analysis [here](https://github.com/aminyakubu/alcohol_vs_hypertension_prj/blob/master/program_alcohol_vs_hp.sas). The abstract is also available [here](alcohol_hypertension.htm)
 
-•	Gender pay gap in the White House for the year 2017
+•	Gender pay gap in the White House for the year 2017. You can find the R code [here](https://github.com/aminyakubu/2017_white_house_salary_analysis/blob/master/2017_white_house_salary_analysis.Rmd)
+
+• NYC AirBnb Data analysis. You can view the dashboard with some data visualization [here](dashboard_template.html)
 
 •	NYC Transit Data analysis to assess station compliance with Americans with Disabilities Act
 
