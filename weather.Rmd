@@ -36,7 +36,7 @@ noaa_df = ny_noaa %>%
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
+### Chart A: Heatmap showing the distribution of maximum and minimum temperatures from 1981 - 2010
 
 ```{r}
 hex = ggplot(noaa_df, aes(x = tmin, y = tmax)) +
@@ -45,7 +45,6 @@ hex = ggplot(noaa_df, aes(x = tmin, y = tmax)) +
   labs(
     x = "Minimum temperature (C)",
     y = "Maximum temperature (C)",
-    title = "Heatmap showing the distribution of maximum and minimum temperatures",
     caption = "NOAA 2017"
   )
 
@@ -73,18 +72,19 @@ my_boxes = noaa_df %>%
 ggplotly(my_boxes)
 ```
 
-### Chart C
+### Chart C: Average Maximum and Minimun temperature for the month of July from 1981 - 2018
 
 ```{r}
-jan = noaa_df %>% 
-  filter(month %in% c("Jan")) %>% 
-  ggplot(aes(x = year, y = tmax, color = year)) +
-  facet_grid(~month) +
-  geom_boxplot() +
-  theme(legend.position = "none", 
-        axis.text.x = element_text(angle = 80, hjust = 1, size = 8)) + 
-  labs(title = "January distribution")
+jul = noaa_df %>% 
+  filter(month %in% c("Jul")) %>% 
+  group_by(year, month) %>% 
+  summarize(average_max_temp = mean(tmax, na.rm = TRUE),
+            average_min_temp = mean(tmin, na.rm = TRUE)) %>% 
+  gather(key = statistic, value = value, average_max_temp:average_min_temp) %>% 
+  ggplot(aes(x = year, y = value, color = statistic, group = statistic)) + geom_point() + 
+  theme( 
+        axis.text.x = element_text(angle = 80, hjust = 1, size = 8)) + viridis::scale_color_viridis(discrete = TRUE)
 
-ggplotly(jan)
+ggplotly(jul)
 ```
 
