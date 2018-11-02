@@ -16,9 +16,12 @@ Doctor of Medicine (MD)
 </p>
 
 ### Skills
+Clinical Medicine<br>
+Data Analysis<br>
+Computer Statistical Learning<br> 
 
-SAS<br>
-R<br>
+R <br>
+SAS <br>
 SQL<br>
 Python (with the help of Google)
 

@@ -10,6 +10,18 @@ title: ""
 
 </detail>
 
-The National Oceanic and Atmospheric Administration agency within the United States Department of Commerce that focuses on the conditions of the oceans, major waterways, and the atmosphere
+The National Oceanic and Atmospheric Administration agency (NOAA) within the United States Department of Commerce that focuses on the conditions of the oceans, major waterways, and the atmosphere. National Centers for Environmental Information (NCEI) under NOAA provides public access to some weather data, including the GHCN (Global Historical Climatology Network)-Daily database of summary statistics from weather stations around the world
+
+The dataset used contains the following variables.
+
+- `id`: Weather station ID
+- `date`: Date of observation
+- `prcp`: Precipitation (tenths of mm)
+- `snow`: Snowfall (mm)
+- `snwd`: Snow depth (mm)
+- `tmax`: Maximum temperature (tenths of degrees C)
+- `tmin`: Minimum temperature (tenths of degrees C)
 
  Click [here](weather.html) to view the [dashboard](weather.html) of the visualized data.
+ 
+ The [dashboard](weather.html)

@@ -28,8 +28,8 @@ noaa_df = ny_noaa %>%
          year = chron::years(date),
          tmax = (as.numeric(tmax))/10,
          tmin = (as.numeric(tmin))/10,
-         prcp = prcp/10)  %>% 
-  sample_n(100000)
+         prcp = prcp/10,
+         snow = snow/25.4)
 ```
 
 Column {data-width=650}
@@ -44,7 +44,7 @@ hex = ggplot(noaa_df, aes(x = tmin, y = tmax)) +
   labs(
     x = "Minimum temperature (C)",
     y = "Maximum temperature (C)",
-    title = "Hexagonal heatmap showing the distribution of maximum and minimum temperatures",
+    title = "Heatmap showing the distribution of maximum and minimum temperatures",
     caption = "NOAA 2017"
   )
 
@@ -66,7 +66,7 @@ my_boxes = noaa_df %>%
   labs(
     x = "Year",
     y = "Snowfall (mm)",
-    title = "Boxplot showing average distribution of snowfall per year"
+    title = "Average distribution of snowfall per year"
   )
 
 ggplotly(my_boxes)
