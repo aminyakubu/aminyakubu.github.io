@@ -10,8 +10,8 @@ navbar:
     - icon: fa-github fa-lg
       href: http://github.com/aminyakubu/
   left:
-    - text: "Dashboard"
-      href: dashboard_template.html
+    - text: "Projects"
+      href: projects.html
     - text: "NY NOAA"
       href: weather.html
 output:

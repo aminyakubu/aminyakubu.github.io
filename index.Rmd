@@ -1,6 +1,11 @@
 ---
-title: "Amin Yakubu"
+title: ""
 ---
+<br>
+</br>
+<center>
+
+## Amin Yakubu
 
 <link rel="stylesheet" href="styles.css" type="text/css">
 <link rel="stylesheet" href="academicons/css/academicons.min.css"/>
@@ -27,3 +32,5 @@ Amin Yakubu
 New York, New York 10032  
 
 Email: [a.yakubu@columbia.edu](mailto:a.yakubu@columbia.edu)  
+
+</center>

@@ -1,0 +1,18 @@
+---
+title: "Projects"
+---
+
+### Projects
+
+•	Alcohol consumption demonstrates a protective effect towards hypertension – Assessing the association between alcohol use and high blood pressure in NHANES 2009-2010. You can find the SAS code for the data analysis [here](https://github.com/aminyakubu/alcohol_vs_hypertension_prj/blob/master/program_alcohol_vs_hp.sas)
+
+•	Gender pay gap in the White House for the year 2017
+
+•	NYC Transit Data analysis to assess station compliance with Americans with Disabilities Act
+
+•	Data analysis of Inner Harbor Water Wheel project in Baltimore 
+
+•	Analysis of weather data on Central Park, NY and Waikiki, HA from NOAA's National Climatic Data Center.
+
+•	Data scrapping of user Facebook comments for qualitative analysis 
+
