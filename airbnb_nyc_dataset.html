@@ -274,7 +274,7 @@ df2 &lt;- read.csv(&quot;data/listings.csv&quot;, stringsAsFactors = FALSE) %&gt
 df &lt;- inner_join(df1, df2, by = &quot;id&quot;)
 
 # Save the data
-save(df, file = &quot;data/nyc_airbnb.RData&quot;)</code></pre>
+write.csv(df, file = &quot;data/nyc_airbnb.csv&quot;)</code></pre>
 <p>The final dataset has 50,041 observations and 17 variables:</p>
 <ul>
 <li><code>id</code>: listing id</li>
