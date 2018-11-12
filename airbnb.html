@@ -11,7 +11,7 @@
 
 
 
-<title>airbnb</title>
+<title>NYC AirBnB</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -250,12 +250,1577 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">airbnb</h1>
+<h1 class="title toc-ignore">NYC AirBnB</h1>
 
 </div>
 
 
+<p>You can find details about how I obtained the NYC Airbnb dataset <a href="airbnb_nyc_dataset.html" target="_blank">here</a></p>
+<p>Let’s set some global options</p>
+<pre class="r"><code>knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = &quot;90%&quot;
+)
 
+library(tidyverse)
+library(viridis)</code></pre>
+<p>Let’s clean the data a bit</p>
+<pre class="r"><code>nyc_airbnb = read_csv(&quot;data/nyc_airbnb.csv&quot;) %&gt;%
+  select(-X1) %&gt;% 
+  mutate(stars = review_scores_location/2) %&gt;% 
+  rename(borough = neighbourhood_group)</code></pre>
+<p>Now that we have our data and libraries ready. Let the exploration begin!</p>
+<div id="some-interesting-questions-about-airbnb" class="section level2">
+<h2>Some interesting questions about AirBnb!</h2>
+<ul>
+<li>Does rating vary by neighborhood, room type, or both?</br></li>
+<li>How is price related to other variables? <br></li>
+<li>Where are rentals located? <br></li>
+<li>What’s the most and least expensive area? <br></li>
+<li>Which area has the highest density of listings?<br></li>
+<li>What are some host characteristics? How many listings? What’s associated with ratings?<br></li>
+</ul>
+<pre class="r"><code>nyc_airbnb %&gt;% 
+  count(room_type) %&gt;% knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">room_type</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Entire home/apt</td>
+<td align="right">26050</td>
+</tr>
+<tr class="even">
+<td align="left">Private room</td>
+<td align="right">22822</td>
+</tr>
+<tr class="odd">
+<td align="left">Shared room</td>
+<td align="right">1169</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>nyc_airbnb %&gt;% count(borough) %&gt;%
+  arrange(desc(n)) %&gt;% 
+  knitr::kable() </code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">borough</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Manhattan</td>
+<td align="right">23052</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn</td>
+<td align="right">20234</td>
+</tr>
+<tr class="odd">
+<td align="left">Queens</td>
+<td align="right">5454</td>
+</tr>
+<tr class="even">
+<td align="left">Bronx</td>
+<td align="right">960</td>
+</tr>
+<tr class="odd">
+<td align="left">Staten Island</td>
+<td align="right">341</td>
+</tr>
+</tbody>
+</table>
+<div id="does-rating-vary-by-neighborhood-room-type-or-both" class="section level4">
+<h4>Does rating vary by neighborhood, room type, or both?</h4>
+<pre class="r"><code>nyc_airbnb %&gt;%
+ group_by(neighbourhood) %&gt;%
+ summarize(median = median(stars, na.rm = TRUE), 
+           mean = mean(stars, na.rm = TRUE),
+           number_of_listings = n()) %&gt;% 
+  knitr::kable()</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">neighbourhood</th>
+<th align="right">median</th>
+<th align="right">mean</th>
+<th align="right">number_of_listings</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Allerton</td>
+<td align="right">4.50</td>
+<td align="right">4.553571</td>
+<td align="right">28</td>
+</tr>
+<tr class="even">
+<td align="left">Arden Heights</td>
+<td align="right">4.25</td>
+<td align="right">4.250000</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Arrochar</td>
+<td align="right">5.00</td>
+<td align="right">4.718750</td>
+<td align="right">19</td>
+</tr>
+<tr class="even">
+<td align="left">Arverne</td>
+<td align="right">5.00</td>
+<td align="right">4.700000</td>
+<td align="right">81</td>
+</tr>
+<tr class="odd">
+<td align="left">Astoria</td>
+<td align="right">5.00</td>
+<td align="right">4.789148</td>
+<td align="right">940</td>
+</tr>
+<tr class="even">
+<td align="left">Bath Beach</td>
+<td align="right">5.00</td>
+<td align="right">4.818182</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left">Battery Park City</td>
+<td align="right">5.00</td>
+<td align="right">4.918919</td>
+<td align="right">66</td>
+</tr>
+<tr class="even">
+<td align="left">Bay Ridge</td>
+<td align="right">5.00</td>
+<td align="right">4.791262</td>
+<td align="right">133</td>
+</tr>
+<tr class="odd">
+<td align="left">Bay Terrace</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Bay Terrace, Staten Island</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Baychester</td>
+<td align="right">4.25</td>
+<td align="right">4.250000</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Bayside</td>
+<td align="right">4.75</td>
+<td align="right">4.708333</td>
+<td align="right">45</td>
+</tr>
+<tr class="odd">
+<td align="left">Bayswater</td>
+<td align="right">4.50</td>
+<td align="right">4.416667</td>
+<td align="right">17</td>
+</tr>
+<tr class="even">
+<td align="left">Bedford-Stuyvesant</td>
+<td align="right">4.50</td>
+<td align="right">4.534142</td>
+<td align="right">3552</td>
+</tr>
+<tr class="odd">
+<td align="left">Belle Harbor</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Bellerose</td>
+<td align="right">5.00</td>
+<td align="right">4.444444</td>
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="left">Belmont</td>
+<td align="right">4.50</td>
+<td align="right">4.642857</td>
+<td align="right">17</td>
+</tr>
+<tr class="even">
+<td align="left">Bensonhurst</td>
+<td align="right">4.50</td>
+<td align="right">4.448980</td>
+<td align="right">62</td>
+</tr>
+<tr class="odd">
+<td align="left">Bergen Beach</td>
+<td align="right">4.50</td>
+<td align="right">4.571429</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">Boerum Hill</td>
+<td align="right">5.00</td>
+<td align="right">4.932099</td>
+<td align="right">196</td>
+</tr>
+<tr class="odd">
+<td align="left">Borough Park</td>
+<td align="right">4.50</td>
+<td align="right">4.494444</td>
+<td align="right">124</td>
+</tr>
+<tr class="even">
+<td align="left">Breezy Point</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Briarwood</td>
+<td align="right">4.50</td>
+<td align="right">4.613636</td>
+<td align="right">53</td>
+</tr>
+<tr class="even">
+<td align="left">Brighton Beach</td>
+<td align="right">5.00</td>
+<td align="right">4.769231</td>
+<td align="right">65</td>
+</tr>
+<tr class="odd">
+<td align="left">Bronxdale</td>
+<td align="right">5.00</td>
+<td align="right">4.687500</td>
+<td align="right">18</td>
+</tr>
+<tr class="even">
+<td align="left">Brooklyn Heights</td>
+<td align="right">5.00</td>
+<td align="right">4.961538</td>
+<td align="right">148</td>
+</tr>
+<tr class="odd">
+<td align="left">Brownsville</td>
+<td align="right">4.50</td>
+<td align="right">4.241667</td>
+<td align="right">74</td>
+</tr>
+<tr class="even">
+<td align="left">Bull’s Head</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">Bushwick</td>
+<td align="right">4.50</td>
+<td align="right">4.625798</td>
+<td align="right">2461</td>
+</tr>
+<tr class="even">
+<td align="left">Cambria Heights</td>
+<td align="right">4.50</td>
+<td align="right">4.692308</td>
+<td align="right">19</td>
+</tr>
+<tr class="odd">
+<td align="left">Canarsie</td>
+<td align="right">4.50</td>
+<td align="right">4.471963</td>
+<td align="right">127</td>
+</tr>
+<tr class="even">
+<td align="left">Carroll Gardens</td>
+<td align="right">5.00</td>
+<td align="right">4.925258</td>
+<td align="right">230</td>
+</tr>
+<tr class="odd">
+<td align="left">Castle Hill</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Castleton Corners</td>
+<td align="right">5.00</td>
+<td align="right">4.875000</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Chelsea</td>
+<td align="right">5.00</td>
+<td align="right">4.934833</td>
+<td align="right">1161</td>
+</tr>
+<tr class="even">
+<td align="left">Chelsea, Staten Island</td>
+<td align="right">NA</td>
+<td align="right">NaN</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Chinatown</td>
+<td align="right">5.00</td>
+<td align="right">4.722570</td>
+<td align="right">394</td>
+</tr>
+<tr class="even">
+<td align="left">City Island</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">15</td>
+</tr>
+<tr class="odd">
+<td align="left">Civic Center</td>
+<td align="right">5.00</td>
+<td align="right">4.794872</td>
+<td align="right">67</td>
+</tr>
+<tr class="even">
+<td align="left">Claremont Village</td>
+<td align="right">4.50</td>
+<td align="right">4.300000</td>
+<td align="right">22</td>
+</tr>
+<tr class="odd">
+<td align="left">Clason Point</td>
+<td align="right">4.50</td>
+<td align="right">4.708333</td>
+<td align="right">19</td>
+</tr>
+<tr class="even">
+<td align="left">Clifton</td>
+<td align="right">4.50</td>
+<td align="right">4.227273</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left">Clinton Hill</td>
+<td align="right">5.00</td>
+<td align="right">4.805319</td>
+<td align="right">594</td>
+</tr>
+<tr class="even">
+<td align="left">Co-op City</td>
+<td align="right">4.50</td>
+<td align="right">4.666667</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Cobble Hill</td>
+<td align="right">5.00</td>
+<td align="right">4.929348</td>
+<td align="right">103</td>
+</tr>
+<tr class="even">
+<td align="left">College Point</td>
+<td align="right">4.50</td>
+<td align="right">4.676471</td>
+<td align="right">20</td>
+</tr>
+<tr class="odd">
+<td align="left">Columbia St</td>
+<td align="right">5.00</td>
+<td align="right">4.763889</td>
+<td align="right">43</td>
+</tr>
+<tr class="even">
+<td align="left">Concord</td>
+<td align="right">5.00</td>
+<td align="right">4.735294</td>
+<td align="right">19</td>
+</tr>
+<tr class="odd">
+<td align="left">Concourse</td>
+<td align="right">4.50</td>
+<td align="right">4.475000</td>
+<td align="right">52</td>
+</tr>
+<tr class="even">
+<td align="left">Concourse Village</td>
+<td align="right">4.50</td>
+<td align="right">4.312500</td>
+<td align="right">37</td>
+</tr>
+<tr class="odd">
+<td align="left">Coney Island</td>
+<td align="right">4.50</td>
+<td align="right">4.447368</td>
+<td align="right">22</td>
+</tr>
+<tr class="even">
+<td align="left">Corona</td>
+<td align="right">4.50</td>
+<td align="right">4.670454</td>
+<td align="right">53</td>
+</tr>
+<tr class="odd">
+<td align="left">Crown Heights</td>
+<td align="right">4.50</td>
+<td align="right">4.585004</td>
+<td align="right">1608</td>
+</tr>
+<tr class="even">
+<td align="left">Cypress Hills</td>
+<td align="right">4.50</td>
+<td align="right">4.395238</td>
+<td align="right">118</td>
+</tr>
+<tr class="odd">
+<td align="left">Ditmars Steinway</td>
+<td align="right">5.00</td>
+<td align="right">4.770270</td>
+<td align="right">346</td>
+</tr>
+<tr class="even">
+<td align="left">Dongan Hills</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Douglaston</td>
+<td align="right">5.00</td>
+<td align="right">4.875000</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">Downtown Brooklyn</td>
+<td align="right">5.00</td>
+<td align="right">4.896552</td>
+<td align="right">84</td>
+</tr>
+<tr class="odd">
+<td align="left">DUMBO</td>
+<td align="right">5.00</td>
+<td align="right">4.804348</td>
+<td align="right">38</td>
+</tr>
+<tr class="even">
+<td align="left">Dyker Heights</td>
+<td align="right">4.50</td>
+<td align="right">4.638889</td>
+<td align="right">23</td>
+</tr>
+<tr class="odd">
+<td align="left">East Elmhurst</td>
+<td align="right">4.50</td>
+<td align="right">4.692000</td>
+<td align="right">152</td>
+</tr>
+<tr class="even">
+<td align="left">East Flatbush</td>
+<td align="right">4.50</td>
+<td align="right">4.416667</td>
+<td align="right">397</td>
+</tr>
+<tr class="odd">
+<td align="left">East Harlem</td>
+<td align="right">4.50</td>
+<td align="right">4.509424</td>
+<td align="right">1191</td>
+</tr>
+<tr class="even">
+<td align="left">East Morrisania</td>
+<td align="right">4.50</td>
+<td align="right">4.428571</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">East New York</td>
+<td align="right">4.50</td>
+<td align="right">4.267956</td>
+<td align="right">210</td>
+</tr>
+<tr class="even">
+<td align="left">East Village</td>
+<td align="right">5.00</td>
+<td align="right">4.875550</td>
+<td align="right">2012</td>
+</tr>
+<tr class="odd">
+<td align="left">Eastchester</td>
+<td align="right">4.50</td>
+<td align="right">4.687500</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">Edenwald</td>
+<td align="right">5.00</td>
+<td align="right">4.750000</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left">Edgemere</td>
+<td align="right">4.50</td>
+<td align="right">4.166667</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">Elmhurst</td>
+<td align="right">4.50</td>
+<td align="right">4.663889</td>
+<td align="right">226</td>
+</tr>
+<tr class="odd">
+<td align="left">Eltingville</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Emerson Hill</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Far Rockaway</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="left">Fieldston</td>
+<td align="right">5.00</td>
+<td align="right">4.916667</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left">Financial District</td>
+<td align="right">5.00</td>
+<td align="right">4.910405</td>
+<td align="right">604</td>
+</tr>
+<tr class="even">
+<td align="left">Flatbush</td>
+<td align="right">4.50</td>
+<td align="right">4.633745</td>
+<td align="right">646</td>
+</tr>
+<tr class="odd">
+<td align="left">Flatiron District</td>
+<td align="right">5.00</td>
+<td align="right">4.981013</td>
+<td align="right">107</td>
+</tr>
+<tr class="even">
+<td align="left">Flatlands</td>
+<td align="right">4.50</td>
+<td align="right">4.418182</td>
+<td align="right">70</td>
+</tr>
+<tr class="odd">
+<td align="left">Flushing</td>
+<td align="right">4.50</td>
+<td align="right">4.634561</td>
+<td align="right">422</td>
+</tr>
+<tr class="even">
+<td align="left">Fordham</td>
+<td align="right">4.50</td>
+<td align="right">4.214286</td>
+<td align="right">35</td>
+</tr>
+<tr class="odd">
+<td align="left">Forest Hills</td>
+<td align="right">5.00</td>
+<td align="right">4.754310</td>
+<td align="right">148</td>
+</tr>
+<tr class="even">
+<td align="left">Fort Greene</td>
+<td align="right">5.00</td>
+<td align="right">4.860955</td>
+<td align="right">451</td>
+</tr>
+<tr class="odd">
+<td align="left">Fort Hamilton</td>
+<td align="right">5.00</td>
+<td align="right">4.822222</td>
+<td align="right">57</td>
+</tr>
+<tr class="even">
+<td align="left">Fort Wadsworth</td>
+<td align="right">NA</td>
+<td align="right">NaN</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Fresh Meadows</td>
+<td align="right">4.50</td>
+<td align="right">4.673913</td>
+<td align="right">27</td>
+</tr>
+<tr class="even">
+<td align="left">Gerritsen Beach</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Glen Oaks</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Glendale</td>
+<td align="right">4.50</td>
+<td align="right">4.428571</td>
+<td align="right">47</td>
+</tr>
+<tr class="odd">
+<td align="left">Gowanus</td>
+<td align="right">5.00</td>
+<td align="right">4.774510</td>
+<td align="right">245</td>
+</tr>
+<tr class="even">
+<td align="left">Gramercy</td>
+<td align="right">5.00</td>
+<td align="right">4.923701</td>
+<td align="right">408</td>
+</tr>
+<tr class="odd">
+<td align="left">Graniteville</td>
+<td align="right">4.50</td>
+<td align="right">4.333333</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Grant City</td>
+<td align="right">5.00</td>
+<td align="right">4.833333</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Gravesend</td>
+<td align="right">4.50</td>
+<td align="right">4.662500</td>
+<td align="right">56</td>
+</tr>
+<tr class="even">
+<td align="left">Great Kills</td>
+<td align="right">5.00</td>
+<td align="right">4.666667</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left">Greenpoint</td>
+<td align="right">5.00</td>
+<td align="right">4.795073</td>
+<td align="right">1157</td>
+</tr>
+<tr class="even">
+<td align="left">Greenwich Village</td>
+<td align="right">5.00</td>
+<td align="right">4.974359</td>
+<td align="right">412</td>
+</tr>
+<tr class="odd">
+<td align="left">Grymes Hill</td>
+<td align="right">5.00</td>
+<td align="right">4.833333</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Harlem</td>
+<td align="right">4.50</td>
+<td align="right">4.631371</td>
+<td align="right">2807</td>
+</tr>
+<tr class="odd">
+<td align="left">Hell’s Kitchen</td>
+<td align="right">5.00</td>
+<td align="right">4.907673</td>
+<td align="right">2087</td>
+</tr>
+<tr class="even">
+<td align="left">Highbridge</td>
+<td align="right">4.50</td>
+<td align="right">4.483333</td>
+<td align="right">32</td>
+</tr>
+<tr class="odd">
+<td align="left">Hollis</td>
+<td align="right">5.00</td>
+<td align="right">4.444444</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left">Holliswood</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Howard Beach</td>
+<td align="right">5.00</td>
+<td align="right">4.818182</td>
+<td align="right">16</td>
+</tr>
+<tr class="even">
+<td align="left">Howland Hook</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Huguenot</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Hunts Point</td>
+<td align="right">4.00</td>
+<td align="right">4.227273</td>
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="left">Inwood</td>
+<td align="right">4.50</td>
+<td align="right">4.548781</td>
+<td align="right">266</td>
+</tr>
+<tr class="even">
+<td align="left">Jackson Heights</td>
+<td align="right">5.00</td>
+<td align="right">4.744828</td>
+<td align="right">186</td>
+</tr>
+<tr class="odd">
+<td align="left">Jamaica</td>
+<td align="right">4.50</td>
+<td align="right">4.547771</td>
+<td align="right">191</td>
+</tr>
+<tr class="even">
+<td align="left">Jamaica Estates</td>
+<td align="right">5.00</td>
+<td align="right">4.791667</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="left">Jamaica Hills</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Kensington</td>
+<td align="right">4.50</td>
+<td align="right">4.628906</td>
+<td align="right">171</td>
+</tr>
+<tr class="odd">
+<td align="left">Kew Gardens</td>
+<td align="right">5.00</td>
+<td align="right">4.807692</td>
+<td align="right">43</td>
+</tr>
+<tr class="even">
+<td align="left">Kew Gardens Hills</td>
+<td align="right">4.50</td>
+<td align="right">4.625000</td>
+<td align="right">17</td>
+</tr>
+<tr class="odd">
+<td align="left">Kingsbridge</td>
+<td align="right">4.50</td>
+<td align="right">4.575472</td>
+<td align="right">66</td>
+</tr>
+<tr class="even">
+<td align="left">Kips Bay</td>
+<td align="right">5.00</td>
+<td align="right">4.834232</td>
+<td align="right">511</td>
+</tr>
+<tr class="odd">
+<td align="left">Laurelton</td>
+<td align="right">4.50</td>
+<td align="right">4.583333</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="left">Lighthouse Hill</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Little Italy</td>
+<td align="right">5.00</td>
+<td align="right">4.842857</td>
+<td align="right">141</td>
+</tr>
+<tr class="even">
+<td align="left">Little Neck</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Long Island City</td>
+<td align="right">5.00</td>
+<td align="right">4.748307</td>
+<td align="right">546</td>
+</tr>
+<tr class="even">
+<td align="left">Longwood</td>
+<td align="right">4.50</td>
+<td align="right">4.473684</td>
+<td align="right">50</td>
+</tr>
+<tr class="odd">
+<td align="left">Lower East Side</td>
+<td align="right">5.00</td>
+<td align="right">4.819608</td>
+<td align="right">981</td>
+</tr>
+<tr class="even">
+<td align="left">Manhattan Beach</td>
+<td align="right">4.50</td>
+<td align="right">4.571429</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left">Marble Hill</td>
+<td align="right">5.00</td>
+<td align="right">4.750000</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">Mariners Harbor</td>
+<td align="right">4.25</td>
+<td align="right">4.250000</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">Maspeth</td>
+<td align="right">4.50</td>
+<td align="right">4.493506</td>
+<td align="right">97</td>
+</tr>
+<tr class="even">
+<td align="left">Melrose</td>
+<td align="right">4.00</td>
+<td align="right">4.125000</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Middle Village</td>
+<td align="right">4.50</td>
+<td align="right">4.692308</td>
+<td align="right">28</td>
+</tr>
+<tr class="even">
+<td align="left">Midland Beach</td>
+<td align="right">5.00</td>
+<td align="right">4.700000</td>
+<td align="right">6</td>
+</tr>
+<tr class="odd">
+<td align="left">Midtown</td>
+<td align="right">5.00</td>
+<td align="right">4.919551</td>
+<td align="right">1696</td>
+</tr>
+<tr class="even">
+<td align="left">Midwood</td>
+<td align="right">4.50</td>
+<td align="right">4.628049</td>
+<td align="right">121</td>
+</tr>
+<tr class="odd">
+<td align="left">Mill Basin</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Morningside Heights</td>
+<td align="right">5.00</td>
+<td align="right">4.829670</td>
+<td align="right">398</td>
+</tr>
+<tr class="odd">
+<td align="left">Morris Heights</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">23</td>
+</tr>
+<tr class="even">
+<td align="left">Morris Park</td>
+<td align="right">5.00</td>
+<td align="right">4.909091</td>
+<td align="right">16</td>
+</tr>
+<tr class="odd">
+<td align="left">Morrisania</td>
+<td align="right">4.50</td>
+<td align="right">4.583333</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left">Mott Haven</td>
+<td align="right">4.50</td>
+<td align="right">4.409091</td>
+<td align="right">51</td>
+</tr>
+<tr class="odd">
+<td align="left">Mount Eden</td>
+<td align="right">4.50</td>
+<td align="right">4.555556</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">Mount Hope</td>
+<td align="right">4.50</td>
+<td align="right">4.571429</td>
+<td align="right">14</td>
+</tr>
+<tr class="odd">
+<td align="left">Murray Hill</td>
+<td align="right">5.00</td>
+<td align="right">4.834936</td>
+<td align="right">488</td>
+</tr>
+<tr class="even">
+<td align="left">Navy Yard</td>
+<td align="right">4.50</td>
+<td align="right">4.681818</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left">Neponsit</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">New Brighton</td>
+<td align="right">4.50</td>
+<td align="right">4.333333</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">New Dorp</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">New Dorp Beach</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">New Springville</td>
+<td align="right">5.00</td>
+<td align="right">4.900000</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">NoHo</td>
+<td align="right">5.00</td>
+<td align="right">4.976923</td>
+<td align="right">81</td>
+</tr>
+<tr class="odd">
+<td align="left">Nolita</td>
+<td align="right">5.00</td>
+<td align="right">4.952586</td>
+<td align="right">339</td>
+</tr>
+<tr class="even">
+<td align="left">North Riverdale</td>
+<td align="right">4.75</td>
+<td align="right">4.625000</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="left">Norwood</td>
+<td align="right">4.50</td>
+<td align="right">4.520000</td>
+<td align="right">37</td>
+</tr>
+<tr class="even">
+<td align="left">Oakwood</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Olinville</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Ozone Park</td>
+<td align="right">4.50</td>
+<td align="right">4.557143</td>
+<td align="right">49</td>
+</tr>
+<tr class="odd">
+<td align="left">Park Slope</td>
+<td align="right">5.00</td>
+<td align="right">4.956221</td>
+<td align="right">544</td>
+</tr>
+<tr class="even">
+<td align="left">Parkchester</td>
+<td align="right">4.50</td>
+<td align="right">4.637931</td>
+<td align="right">33</td>
+</tr>
+<tr class="odd">
+<td align="left">Pelham Bay</td>
+<td align="right">4.50</td>
+<td align="right">4.346154</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="left">Pelham Gardens</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">25</td>
+</tr>
+<tr class="odd">
+<td align="left">Pleasant Plains</td>
+<td align="right">NA</td>
+<td align="right">NaN</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Port Morris</td>
+<td align="right">4.50</td>
+<td align="right">4.357143</td>
+<td align="right">38</td>
+</tr>
+<tr class="odd">
+<td align="left">Port Richmond</td>
+<td align="right">4.50</td>
+<td align="right">4.357143</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">Prince’s Bay</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Prospect Heights</td>
+<td align="right">5.00</td>
+<td align="right">4.920128</td>
+<td align="right">371</td>
+</tr>
+<tr class="even">
+<td align="left">Prospect-Lefferts Gardens</td>
+<td align="right">4.50</td>
+<td align="right">4.612766</td>
+<td align="right">574</td>
+</tr>
+<tr class="odd">
+<td align="left">Queens Village</td>
+<td align="right">4.50</td>
+<td align="right">4.583333</td>
+<td align="right">45</td>
+</tr>
+<tr class="even">
+<td align="left">Randall Manor</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">18</td>
+</tr>
+<tr class="odd">
+<td align="left">Red Hook</td>
+<td align="right">4.50</td>
+<td align="right">4.663934</td>
+<td align="right">72</td>
+</tr>
+<tr class="even">
+<td align="left">Rego Park</td>
+<td align="right">5.00</td>
+<td align="right">4.641975</td>
+<td align="right">96</td>
+</tr>
+<tr class="odd">
+<td align="left">Richmond Hill</td>
+<td align="right">4.50</td>
+<td align="right">4.557971</td>
+<td align="right">79</td>
+</tr>
+<tr class="even">
+<td align="left">Richmondtown</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Ridgewood</td>
+<td align="right">4.50</td>
+<td align="right">4.583612</td>
+<td align="right">413</td>
+</tr>
+<tr class="even">
+<td align="left">Riverdale</td>
+<td align="right">5.00</td>
+<td align="right">4.833333</td>
+<td align="right">15</td>
+</tr>
+<tr class="odd">
+<td align="left">Rockaway Beach</td>
+<td align="right">5.00</td>
+<td align="right">4.738095</td>
+<td align="right">70</td>
+</tr>
+<tr class="even">
+<td align="left">Roosevelt Island</td>
+<td align="right">5.00</td>
+<td align="right">4.692983</td>
+<td align="right">83</td>
+</tr>
+<tr class="odd">
+<td align="left">Rosebank</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Rosedale</td>
+<td align="right">4.50</td>
+<td align="right">4.413793</td>
+<td align="right">37</td>
+</tr>
+<tr class="odd">
+<td align="left">Rossville</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">Schuylerville</td>
+<td align="right">4.50</td>
+<td align="right">4.600000</td>
+<td align="right">7</td>
+</tr>
+<tr class="odd">
+<td align="left">Sea Gate</td>
+<td align="right">5.00</td>
+<td align="right">4.666667</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Sheepshead Bay</td>
+<td align="right">5.00</td>
+<td align="right">4.763441</td>
+<td align="right">154</td>
+</tr>
+<tr class="odd">
+<td align="left">Shore Acres</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">9</td>
+</tr>
+<tr class="even">
+<td align="left">Silver Lake</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">SoHo</td>
+<td align="right">5.00</td>
+<td align="right">4.977032</td>
+<td align="right">380</td>
+</tr>
+<tr class="even">
+<td align="left">Soundview</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">9</td>
+</tr>
+<tr class="odd">
+<td align="left">South Beach</td>
+<td align="right">5.00</td>
+<td align="right">4.875000</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">South Ozone Park</td>
+<td align="right">4.50</td>
+<td align="right">4.558823</td>
+<td align="right">48</td>
+</tr>
+<tr class="odd">
+<td align="left">South Slope</td>
+<td align="right">5.00</td>
+<td align="right">4.939076</td>
+<td align="right">290</td>
+</tr>
+<tr class="even">
+<td align="left">Springfield Gardens</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">57</td>
+</tr>
+<tr class="odd">
+<td align="left">Spuyten Duyvil</td>
+<td align="right">4.75</td>
+<td align="right">4.625000</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">St. Albans</td>
+<td align="right">4.50</td>
+<td align="right">4.561224</td>
+<td align="right">62</td>
+</tr>
+<tr class="odd">
+<td align="left">St. George</td>
+<td align="right">5.00</td>
+<td align="right">4.743590</td>
+<td align="right">47</td>
+</tr>
+<tr class="even">
+<td align="left">Stapleton</td>
+<td align="right">4.50</td>
+<td align="right">4.586207</td>
+<td align="right">34</td>
+</tr>
+<tr class="odd">
+<td align="left">Stuyvesant Town</td>
+<td align="right">5.00</td>
+<td align="right">4.769231</td>
+<td align="right">28</td>
+</tr>
+<tr class="even">
+<td align="left">Sunnyside</td>
+<td align="right">5.00</td>
+<td align="right">4.785185</td>
+<td align="right">350</td>
+</tr>
+<tr class="odd">
+<td align="left">Sunset Park</td>
+<td align="right">4.50</td>
+<td align="right">4.656151</td>
+<td align="right">410</td>
+</tr>
+<tr class="even">
+<td align="left">Theater District</td>
+<td align="right">5.00</td>
+<td align="right">4.903704</td>
+<td align="right">250</td>
+</tr>
+<tr class="odd">
+<td align="left">Throgs Neck</td>
+<td align="right">5.00</td>
+<td align="right">4.846154</td>
+<td align="right">14</td>
+</tr>
+<tr class="even">
+<td align="left">Todt Hill</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Tompkinsville</td>
+<td align="right">4.50</td>
+<td align="right">4.590909</td>
+<td align="right">38</td>
+</tr>
+<tr class="even">
+<td align="left">Tottenville</td>
+<td align="right">5.00</td>
+<td align="right">4.833333</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">Tremont</td>
+<td align="right">4.00</td>
+<td align="right">4.187500</td>
+<td align="right">10</td>
+</tr>
+<tr class="even">
+<td align="left">Tribeca</td>
+<td align="right">5.00</td>
+<td align="right">4.954918</td>
+<td align="right">171</td>
+</tr>
+<tr class="odd">
+<td align="left">Two Bridges</td>
+<td align="right">4.50</td>
+<td align="right">4.638889</td>
+<td align="right">69</td>
+</tr>
+<tr class="even">
+<td align="left">Unionport</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">University Heights</td>
+<td align="right">4.50</td>
+<td align="right">4.473684</td>
+<td align="right">23</td>
+</tr>
+<tr class="even">
+<td align="left">Upper East Side</td>
+<td align="right">5.00</td>
+<td align="right">4.875772</td>
+<td align="right">1952</td>
+</tr>
+<tr class="odd">
+<td align="left">Upper West Side</td>
+<td align="right">5.00</td>
+<td align="right">4.901019</td>
+<td align="right">2156</td>
+</tr>
+<tr class="even">
+<td align="left">Van Nest</td>
+<td align="right">4.50</td>
+<td align="right">4.363636</td>
+<td align="right">15</td>
+</tr>
+<tr class="odd">
+<td align="left">Vinegar Hill</td>
+<td align="right">5.00</td>
+<td align="right">4.708333</td>
+<td align="right">31</td>
+</tr>
+<tr class="even">
+<td align="left">Wakefield</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">41</td>
+</tr>
+<tr class="odd">
+<td align="left">Washington Heights</td>
+<td align="right">4.50</td>
+<td align="right">4.585714</td>
+<td align="right">919</td>
+</tr>
+<tr class="even">
+<td align="left">West Brighton</td>
+<td align="right">4.50</td>
+<td align="right">4.535714</td>
+<td align="right">17</td>
+</tr>
+<tr class="odd">
+<td align="left">West Farms</td>
+<td align="right">4.50</td>
+<td align="right">4.166667</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">West Village</td>
+<td align="right">5.00</td>
+<td align="right">4.974097</td>
+<td align="right">815</td>
+</tr>
+<tr class="odd">
+<td align="left">Westchester Square</td>
+<td align="right">4.50</td>
+<td align="right">4.583333</td>
+<td align="right">7</td>
+</tr>
+<tr class="even">
+<td align="left">Westerleigh</td>
+<td align="right">5.00</td>
+<td align="right">5.000000</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Whitestone</td>
+<td align="right">5.00</td>
+<td align="right">4.857143</td>
+<td align="right">12</td>
+</tr>
+<tr class="even">
+<td align="left">Williamsbridge</td>
+<td align="right">4.50</td>
+<td align="right">4.465517</td>
+<td align="right">39</td>
+</tr>
+<tr class="odd">
+<td align="left">Williamsburg</td>
+<td align="right">5.00</td>
+<td align="right">4.856574</td>
+<td align="right">4168</td>
+</tr>
+<tr class="even">
+<td align="left">Willowbrook</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Windsor Terrace</td>
+<td align="right">5.00</td>
+<td align="right">4.855634</td>
+<td align="right">173</td>
+</tr>
+<tr class="even">
+<td align="left">Woodhaven</td>
+<td align="right">4.50</td>
+<td align="right">4.416667</td>
+<td align="right">73</td>
+</tr>
+<tr class="odd">
+<td align="left">Woodlawn</td>
+<td align="right">4.75</td>
+<td align="right">4.750000</td>
+<td align="right">8</td>
+</tr>
+<tr class="even">
+<td align="left">Woodrow</td>
+<td align="right">4.50</td>
+<td align="right">4.500000</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="left">Woodside</td>
+<td align="right">5.00</td>
+<td align="right">4.708333</td>
+<td align="right">211</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>nyc_airbnb %&gt;%
+  group_by(room_type) %&gt;%
+  summarize(median_stars = median(stars, na.rm = TRUE), 
+            average_stars = mean(stars, na.rm = TRUE),
+           number_of_listings = n())</code></pre>
+<pre><code>## # A tibble: 3 x 4
+##   room_type       median_stars average_stars number_of_listings
+##   &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;              &lt;int&gt;
+## 1 Entire home/apt            5          4.78              26050
+## 2 Private room               5          4.71              22822
+## 3 Shared room                5          4.68               1169</code></pre>
+<pre class="r"><code>ggplot(nyc_airbnb, aes(x = stars), color = boro) +
+ geom_histogram() +
+ facet_grid(~room_type)</code></pre>
+<p><img src="airbnb_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
+<pre class="r"><code>nyc_airbnb %&gt;%
+  group_by(borough, room_type) %&gt;%
+  summarise(
+  mean_stars = mean(stars, na.rm = TRUE)) %&gt;% 
+  spread(key = room_type, value = mean_stars)</code></pre>
+<pre><code>## # A tibble: 5 x 4
+## # Groups:   borough [5]
+##   borough       `Entire home/apt` `Private room` `Shared room`
+##   &lt;chr&gt;                     &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;
+## 1 Bronx                      4.59           4.50          4.35
+## 2 Brooklyn                   4.73           4.67          4.61
+## 3 Manhattan                  4.84           4.79          4.80
+## 4 Queens                     4.71           4.68          4.60
+## 5 Staten Island              4.69           4.62          5</code></pre>
+</div>
+<div id="where-are-rentals-located" class="section level4">
+<h4>Where are rentals located?</h4>
+<pre class="r"><code>nyc_airbnb %&gt;% 
+  filter(borough == &quot;Manhattan&quot;, price &lt; 1000) %&gt;% 
+  ggplot(aes(x = longitude, y = latitude, color = price)) + 
+  geom_point(alpha = .2) + 
+  facet_grid(~room_type) + 
+  coord_cartesian() + 
+  scale_color_viridis()</code></pre>
+<p><img src="airbnb_files/figure-html/unnamed-chunk-7-1.png" width="90%" /></p>
+<p>Entire homes are more expensive than other room types, and are more clustered in southern Manhattan.</p>
+</div>
+<div id="expensive-areas" class="section level4">
+<h4>Expensive areas</h4>
+<pre class="r"><code>nyc_airbnb %&gt;%
+ select(borough, neighbourhood, price) %&gt;%
+ filter(borough == &quot;Manhattan&quot;) %&gt;%
+ group_by(neighbourhood) %&gt;%
+ summarize(mean_price = mean(price, na.rm = TRUE),
+           median_price = median(price, na.rm = TRUE)) %&gt;% 
+  top_n(5, median_price) %&gt;%
+ arrange(desc(median_price))</code></pre>
+<pre><code>## # A tibble: 5 x 3
+##   neighbourhood     mean_price median_price
+##   &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt;
+## 1 Tribeca                 413.          251
+## 2 NoHo                    265.          245
+## 3 Battery Park City       295.          225
+## 4 Flatiron District       318.          218
+## 5 Midtown                 278.          210</code></pre>
+<pre class="r"><code>nyc_airbnb %&gt;%
+ select(borough, neighbourhood, price) %&gt;%
+ filter(borough == &quot;Brooklyn&quot;) %&gt;%
+ group_by(neighbourhood) %&gt;%
+ summarize(mean_price = mean(price, na.rm = TRUE),
+           median_price = median(price, na.rm = TRUE)) %&gt;% 
+  top_n(5, median_price) %&gt;%
+ arrange(desc(median_price))</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   neighbourhood     mean_price median_price
+##   &lt;chr&gt;                  &lt;dbl&gt;        &lt;dbl&gt;
+## 1 DUMBO                   190.         162.
+## 2 Vinegar Hill            164.         159 
+## 3 Boerum Hill             180.         150 
+## 4 Brooklyn Heights        195.         150 
+## 5 Carroll Gardens         181.         150 
+## 6 Downtown Brooklyn       162.         150</code></pre>
+<pre class="r"><code>nyc_airbnb %&gt;%
+ select(borough, neighbourhood, price) %&gt;%
+ filter(borough == &quot;Manhattan&quot;) %&gt;%
+ group_by(neighbourhood) %&gt;%
+ summarize(mean_price = mean(price, na.rm = TRUE),
+           median_price = median(price, na.rm = TRUE)) %&gt;% 
+  top_n(-5, median_price) %&gt;%
+ arrange(median_price)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   neighbourhood       mean_price median_price
+##   &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt;
+## 1 Washington Heights        89.4           70
+## 2 Inwood                    88.3           75
+## 3 Roosevelt Island         103.            79
+## 4 Marble Hill               82.2           89
+## 5 Harlem                   120.            90
+## 6 Morningside Heights      109.            90</code></pre>
+<pre class="r"><code>nyc_airbnb %&gt;%
+ select(borough, neighbourhood, price) %&gt;%
+ filter(borough == &quot;Brooklyn&quot;) %&gt;%
+ group_by(neighbourhood) %&gt;%
+ summarize(mean_price = mean(price, na.rm = TRUE),
+           median_price = median(price, na.rm = TRUE)) %&gt;% 
+  top_n(-5, median_price) %&gt;%
+ arrange(median_price)</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##   neighbourhood   mean_price median_price
+##   &lt;chr&gt;                &lt;dbl&gt;        &lt;dbl&gt;
+## 1 Gerritsen Beach       74           50  
+## 2 Borough Park          69.7         55  
+## 3 Gravesend             81.3         61  
+## 4 Cypress Hills         80.2         61.5
+## 5 Brownsville           86.3         65  
+## 6 Bushwick              81.8         65</code></pre>
+</div>
+</div>
 
 <br><br>
 <footer>

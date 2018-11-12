@@ -1,5 +1,139 @@
 ---
-title: "airbnb"
+title: "NYC AirBnB"
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+```
+
+You can find details about how I obtained the NYC Airbnb dataset <a href="airbnb_nyc_dataset.html" target="_blank">here</a> 
+
+Let's set some global options
+```{r}
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+library(tidyverse)
+library(viridis)
+```
+
+Let's clean the data a bit
+
+```{r}
+nyc_airbnb = read_csv("data/nyc_airbnb.csv") %>%
+  select(-X1) %>% 
+  mutate(stars = review_scores_location/2) %>% 
+  rename(borough = neighbourhood_group)
+  
+```
+
+Now that we have our data and libraries ready. Let the exploration begin! 
+
+## Some interesting questions about AirBnb! 
+
+* Does rating vary by neighborhood, room type, or both?</br>
+* How is price related to other variables? <br>
+* Where are rentals located? <br>
+* What's the most and least expensive area? <br>
+* Which area has the highest density of listings?<br>
+* What are some host characteristics? How many listings? What's associated with ratings?<br>
+
+```{r}
+nyc_airbnb %>% 
+  count(room_type) %>% knitr::kable()
+
+nyc_airbnb %>% count(borough) %>%
+  arrange(desc(n)) %>% 
+  knitr::kable() 
+```
+
+#### Does rating vary by neighborhood, room type, or both?
+
+```{r}
+nyc_airbnb %>%
+ group_by(neighbourhood) %>%
+ summarize(median = median(stars, na.rm = TRUE), 
+           mean = mean(stars, na.rm = TRUE),
+           number_of_listings = n()) %>% 
+  knitr::kable()
+
+nyc_airbnb %>%
+  group_by(room_type) %>%
+  summarize(median_stars = median(stars, na.rm = TRUE), 
+            average_stars = mean(stars, na.rm = TRUE),
+           number_of_listings = n())
+```
+
+```{r}
+ggplot(nyc_airbnb, aes(x = stars), color = boro) +
+ geom_histogram() +
+ facet_grid(~room_type)
+```
+
+```{r}
+nyc_airbnb %>%
+  group_by(borough, room_type) %>%
+  summarise(
+  mean_stars = mean(stars, na.rm = TRUE)) %>% 
+  spread(key = room_type, value = mean_stars)
+```
+
+#### Where are rentals located?
+
+```{r}
+nyc_airbnb %>% 
+  filter(borough == "Manhattan", price < 1000) %>% 
+  ggplot(aes(x = longitude, y = latitude, color = price)) + 
+  geom_point(alpha = .2) + 
+  facet_grid(~room_type) + 
+  coord_cartesian() + 
+  scale_color_viridis()
+```
+
+Entire homes are more expensive than other room types, and are more clustered in southern Manhattan. 
+
+#### Expensive areas
+
+```{r}
+nyc_airbnb %>%
+ select(borough, neighbourhood, price) %>%
+ filter(borough == "Manhattan") %>%
+ group_by(neighbourhood) %>%
+ summarize(mean_price = mean(price, na.rm = TRUE),
+           median_price = median(price, na.rm = TRUE)) %>% 
+  top_n(5, median_price) %>%
+ arrange(desc(median_price))
+
+nyc_airbnb %>%
+ select(borough, neighbourhood, price) %>%
+ filter(borough == "Brooklyn") %>%
+ group_by(neighbourhood) %>%
+ summarize(mean_price = mean(price, na.rm = TRUE),
+           median_price = median(price, na.rm = TRUE)) %>% 
+  top_n(5, median_price) %>%
+ arrange(desc(median_price))
+
+nyc_airbnb %>%
+ select(borough, neighbourhood, price) %>%
+ filter(borough == "Manhattan") %>%
+ group_by(neighbourhood) %>%
+ summarize(mean_price = mean(price, na.rm = TRUE),
+           median_price = median(price, na.rm = TRUE)) %>% 
+  top_n(-5, median_price) %>%
+ arrange(median_price)
+
+nyc_airbnb %>%
+ select(borough, neighbourhood, price) %>%
+ filter(borough == "Brooklyn") %>%
+ group_by(neighbourhood) %>%
+ summarize(mean_price = mean(price, na.rm = TRUE),
+           median_price = median(price, na.rm = TRUE)) %>% 
+  top_n(-5, median_price) %>%
+ arrange(median_price)
+```
 

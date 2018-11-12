@@ -1,0 +1,55 @@
+---
+title: "AirBnB Dataset"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+```
+
+The data was assessed from [Inside Airbnb](http://insideairbnb.com/get-the-data.html) on 3rd November, 2018. <br>
+
+According to Inside Airbnb, they are "an independent, non-commercial set of tools and data that allows you to explore how Airbnb is really being used in cities around the world". You can learn more about Inside AirBnb [here](http://insideairbnb.com/index.html)<br>
+
+The code below was used to create the final dataset for analysis
+
+```{r}
+library(tidyverse)
+
+# First, uncompress and load the data. Then select id and review_scores_location variables
+
+uncompress = gzfile(description = "data/listings.csv.gz", open = "rt")
+df1 = read.csv(uncompress, header = T) %>% 
+    select(id, review_scores_location)
+
+# Read the summary for NYC
+df2 <- read.csv("data/listings.csv", stringsAsFactors = FALSE) %>% 
+  mutate(last_review = as.Date(last_review, format = "%Y-%m-%d"))
+
+# Combine the two datasets
+df <- inner_join(df1, df2, by = "id")
+
+# Save the data
+write.csv(df, file = "data/nyc_airbnb.csv")
+```
+
+The final dataset has 50,041 observations and 17 variables:
+
+- `id`: listing id
+- `review_scores_location`: 0-5 stars converted into a 0-10 scale
+- `name`: listing name
+- `host_id`: host id 
+- `host_name`: host name
+- `neighbourhood_group`: NYC borough
+- `neighbourhood`: NYC neighborhood
+- `latitude`: listing latitude
+- `longitude`: listing longitude
+- `room_type`: type of listing (Entire home/apt, Private room, Shared room)
+- `price`: listing price
+- `minimum_nights`: required minimum nights stay
+- `number_of_reviews`: total number of reviews
+- `last_review`: date of last review
+- `reviews per month`: average number of reviews per month
+- `calculated_host_listings_count`: total number of listings for this host
+- `availability_365`: number of days listing is available out of 365
+
