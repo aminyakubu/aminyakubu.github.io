@@ -1,15 +1,11 @@
 ---
-title: "WH Gender Pay Gap"
----
-
----
 title: "2017 White House Employee Salary Analysis - Gender pay gap"
-author: "Amin Yakubu"
-date: "10/6/2018"
-output: github_document
 ---
 
 ```{r setup, include=FALSE}
+
+# setting global options 
+
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
@@ -19,25 +15,27 @@ knitr::opts_chunk$set(
   fig.asp = .9,
   out.width = "90%"
 )
+
 ```
 
-Loading tidyverse package and setting global options
+
 ```{r}
+# Loading tidyverse package and setting global options as well
+
 library(tidyverse)
 library(knitr)
 library(kableExtra)
 library(plotly)
-knitr::opts_chunk$set(
-  fig.width = 6,
-  fig.asp = .6,
-  out.width = "90%"
-)
-theme_set(theme_bw() + theme(legend.position = "bottom"))
+
 ```
 
+The dataset was obtain from 16-page document detailing the salaries of Trump Administration in it's annual report to congress on White Huse personnel as of Friday, June 30, 2017. You can find a copy of the report [here](downloads/whitehousepay.pdf). You can read more about the dataset [here](https://data.world/carlvlewis/white-house-salaries-jan-jun-30-17) <br>
 
-Reading and cleaning the dataset 
+The aim of this data analysis is to understand the salary distribution of male and female employees, and further explore any gaps between the two genders in the dataset. You can find a copy of the data and code used to produce this analysis on my GitHub account [here](https://github.com/aminyakubu/aminyakubu.github.io/blob/master/whpaygap.Rmd)
+
 ```{r}
+# Reading and cleaning the dataset
+
 wh_pay = read_csv("./data//white_house_2017_salaries_clean.csv") %>% 
   select(-(starts_with("X")))
 ```
@@ -55,21 +53,46 @@ wh_pay %>%
 
 ```
 
-### Distribution of top earnings
+Let's start by looking at the mean and median salaries for male and female employees
+
+```{r}
+wh_pay %>%
+  group_by(GENDER) %>%
+  summarize(NUMBER = n(),
+            'MEAN SALARY' = mean(SALARY),
+            'MEDIAN SALARY' = median(SALARY))  %>% knitr::kable() %>% kable_styling(bootstrap_options = "striped", full_width = T)
+
+```
+
+#### Boxplot
+
+```{r}
+box = ggplot(wh_pay, aes(x = GENDER, y = SALARY, fill = GENDER)) +
+  geom_boxplot(width = .1) + viridis::scale_fill_viridis(discrete = TRUE)
+
+ggplotly(box)
+```
+
+### Let's break it down even further! 
+
+### Distribution of top earnings (salary greater >= $100,000)
 <br>
+
+**There are 153 staff earning $100,000 or more**
 
 ```{r}
 salary = wh_pay %>% 
   filter(SALARY > 100000) %>% 
   group_by(GENDER) %>% 
   summarize(NUMBER = n()) %>% 
-  ggplot(aes(x = GENDER, y = NUMBER, fill = GENDER)) + geom_col(width = .6) + viridis::scale_fill_viridis(discrete = TRUE)
+  ggplot(aes(x = GENDER, y = NUMBER, fill = GENDER)) + geom_col(width = .3) 
 
 ggplotly(salary)
+
 ```
 
 </br>
-Of the 153 staff earning more than $100,000 only 51 of them are female. 
+ Of the 153, only 51 of them are female. 
 
 ```{r}
 wh_pay %>% 
@@ -82,47 +105,41 @@ wh_pay %>%
 
 <p> <br> Of the remaining 224 that earn less than $100,000, 115 of them are female. This include Ivanka Trump and her husband, Jared Kusner, and Reed Cordish all of whom have a salary of 0. Gary Cohn, millionare former CEO of Goldman Sachs has a salary of 30,000. </br> </p>
 
-```{r}
-wh_pay %>%
-  group_by(GENDER) %>%
-  summarize(n = n()) %>% knitr::kable()
+<br></br> 
 
-wh_pay %>% 
-  group_by(TITLE, GENDER) %>% 
-  summarize(n = n()) %>% 
-  arrange(desc(n)) %>% 
-  knitr::kable()
-```
-
+<br>
 ```{r}
-wh_pay %>% 
-  group_by(GENDER) %>% 
-  summarize(n = n(),
-            mean = mean(SALARY),
-            median = median(SALARY)) %>% knitr::kable()
-```
 
-```{r}
-wh_pay %>%
-  group_by(GENDER) %>%
-  summarize(n = n(),
-            mean = mean(SALARY),
-            median = median(SALARY))  %>%
-  ggplot(aes(x = GENDER, y = mean, fill = GENDER)) + 
-  geom_col(width = 0.5) 
-wh_pay %>%
-  group_by(GENDER) %>%
-  summarize(n = n(),
-            mean = mean(SALARY),
-            median = median(SALARY))  %>%
-  ggplot(aes(x = GENDER, y = median, fill = GENDER)) + 
-  geom_col(width = 0.5) 
-ggplot(wh_pay, aes(x = GENDER, y = SALARY, fill = GENDER)) +
-  geom_boxplot()
-ggplot(wh_pay, aes(x = STATUS, fill = GENDER)) + 
-  geom_bar(width = 0.5)
-ggplot(wh_pay, aes(x = SALARY, fill = GENDER)) + 
+density = ggplot(wh_pay, aes(x = SALARY, fill = GENDER)) + 
   geom_density(alpha = .4, adjust = .5, color = "blue")
-ggplot(wh_pay, aes(x = SALARY, fill = GENDER)) + 
+
+ggplotly(density)
+
+hist = ggplot(wh_pay, aes(x = SALARY, fill = GENDER)) + 
   geom_histogram(position = "dodge") 
+
+ggplotly(hist)
+```
+</br>
+
+The density distribution shows more female employees at the lower tail of the salary distribution and more male employees at the upper tail of the distribution. 
+
+### Title/Position
+
+There are `r count(distinct(wh_pay, TITLE))` distinct titles. Of the `r count(distinct(wh_pay, TITLE))`, there are 30 titles/positions for which there are both males and females. The graph attempts to see if there are positions where males and females earn different salaries using the median salary. 
+
+```{r}
+d = wh_pay %>% 
+  group_by(TITLE, GENDER) %>% 
+  summarize(median = median(SALARY)) %>% 
+  spread(key = GENDER, value = median) %>% filter(!is.na(F) & !is.na(M)) %>% ungroup() %>% 
+  mutate(diff = M - F,
+         TITLE = reorder(TITLE, diff))
+
+plot_ly(d, x = ~ TITLE, y = ~ M, type = 'bar', name = 'Male', marker = list(color = 'rgb(49,130,189)')) %>%
+  add_trace(y = ~ F, name = 'Female', marker = list(color = 'rgb(204,204,204)')) %>%
+  layout(xaxis = list(title = "", tickangle = -45),
+         yaxis = list(title = ""),
+         margin = list(b = 100),
+         barmode = 'group')
 ```
