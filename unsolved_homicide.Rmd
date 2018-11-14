@@ -19,7 +19,7 @@ hom_df = read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicid
 
 #### Description of dataset
 
-The Washington Post has collect data on `r nrow(hom_df)` criminal homicides over the past decade in 50 of the largest American cities. The dataset has `r nrow(hom_df)` observations x `r ncol(hom_df)` variables. Variables include victim information like name, age, sex, and race. Geographic information collected also include city, state, longitude and latitude information. Finally the variable `desposition` records whether the homicide case was closed without any arrest, still open with no arrest and closed due to arrest. 
+The Washington Post has collected data on `r nrow(hom_df)` criminal homicides over the past decade in 50 of the largest American cities. The dataset has `r nrow(hom_df)` observations x `r ncol(hom_df)` variables. Variables include victim information like name, age, sex, and race. Geographic information collected also include city, state, longitude and latitude information. Finally the variable `desposition` records whether the homicide case was closed without any arrest, still open with no arrest and closed due to arrest. 
 
 ##### Summary statistics
 
