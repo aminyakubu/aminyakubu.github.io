@@ -151,7 +151,7 @@ fit_logistic_cities = homicide_df %>%
 
 Creating a plot that shows the estimated ORs and CIs for each city. 
 
-```{r, dpi = 300, out.width = "90%"}
+```{r}
 ggplot(fit_logistic_cities, aes(x = city_state, y = OR )) + 
   geom_point() + 
   geom_errorbar(aes(ymin = lower_95_ci, ymax = upper_95_ci)) + 
