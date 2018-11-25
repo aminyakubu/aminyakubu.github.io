@@ -89,7 +89,7 @@ plot = ggplot(unnested_ci_for_states, aes(x = city_state, y = estimate )) +
 ggplotly(plot)
 ```
 
-Further analysis
+#### Further analysis
 
 In the code chunk below, I am reading in the dataset and creating a city_state variable (e.g. “Baltimore, MD”), and a binary variable indicating whether the homicide is solved. I will also remove Dallas, TX; Phoenix, AZ; and Kansas City, MO – these don’t report victim race and then Tulsa, AL – this is a data entry mistake.
 
@@ -151,7 +151,7 @@ fit_logistic_cities = homicide_df %>%
 
 Creating a plot that shows the estimated ORs and CIs for each city. 
 
-```{r}
+```{r, dpi = 300, out.width = "90%"}
 ggplot(fit_logistic_cities, aes(x = city_state, y = OR )) + 
   geom_point() + 
   geom_errorbar(aes(ymin = lower_95_ci, ymax = upper_95_ci)) + 
