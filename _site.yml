@@ -5,6 +5,8 @@ navbar:
   right:
   - text: Projects
     menu:
+    - text: NYC Crime Data Analysis
+      href: https://aminyakubu.github.io/nyc-crime/index.html
     - text: NY NOAA
       href: noaa.html
     - text: Alcohol & Hypertension
