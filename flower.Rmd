@@ -1,6 +1,5 @@
 ---
 title: "A flower in the wild"
-output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -9,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = .9,
-  out.width = "90%"
+  out.width = "80%"
 )
 
 library(tidyverse)
@@ -21,6 +20,7 @@ Let's start by drawing 50 points on a circle of radius 1. As every (x, y) point 
 
 
 ```{r}
+
 t <- seq(0, 2*pi, length.out = 50)
 x <- sin(t)
 y <- cos(t)

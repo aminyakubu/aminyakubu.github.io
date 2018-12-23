@@ -4,9 +4,6 @@ navbar:
   title: Home
   right:
   - text: Projects
-    menu: Hobbies
-    - text: A flower in the wild
-    - href: flower.html
     menu:
     - text: NYC Crime Data Analysis
       href: https://aminyakubu.github.io/nyc-crime/index.html
@@ -24,6 +21,10 @@ navbar:
       href: trashwheel.html
   - text: Curriculum vitae
     href: about.html
+  - text: Hobbies
+    menu:
+    - text: Flower using mathemamtics
+      href: flower.html
   - icon: fa-linkedin fa-lg
     href: https://www.linkedin.com/in/aminyakubu/
   - icon: fa-twitter fa-lg

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>A flower in the wild</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+<script defer src="https://use.fontawesome.com/releases/v5.0.3/js/all.js"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.0/js/v4-shims.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Projects
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://aminyakubu.github.io/nyc-crime/index.html">NYC Crime Data Analysis</a>
+    </li>
+    <li>
+      <a href="noaa.html">NY NOAA</a>
+    </li>
+    <li>
+      <a href="alchohol_hypertension.html">Alcohol &amp; Hypertension</a>
+    </li>
+    <li>
+      <a href="unsolved_homicide.html">Unsolved Homicides in 50 US Cities</a>
+    </li>
+    <li>
+      <a href="airbnb.html">NYC AirBnB</a>
+    </li>
+    <li>
+      <a href="whpaygap.html">White House Gender Pay Gap</a>
+    </li>
+    <li>
+      <a href="trashwheel.html">Baltimore Inner Harbor Water Wheel</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="about.html">Curriculum vitae</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Hobbies
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="flower.html">Flower using mathemamtics</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://www.linkedin.com/in/aminyakubu/">
+    <span class="fa fa-linkedin fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://twitter.com/iamaminyakubu">
+    <span class="fa fa-twitter fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="mailto:&lt;a.yakubu@columbia.edu&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/aminyakubu/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">A flower in the wild</h1>
+
+</div>
+
+
+<p>For the love of arts, I’m going to make a flower in R.</p>
+<p>Let’s start by drawing 50 points on a circle of radius 1. As every (x, y) point should be in the unit circle, it follows that x² + y² = 1.We can get this using the Pythagorean trigonometric identity which states that sin²(θ) + cos²(θ) = 1 for any real number θ.</p>
+<pre class="r"><code>t &lt;- seq(0, 2*pi, length.out = 50)
+x &lt;- sin(t)
+y &lt;- cos(t)
+df &lt;- data.frame(t, x, y)
+
+# Make a scatter plot of points in a circle
+p &lt;- ggplot(df, aes(x, y))
+p + geom_point()</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-1-1.png" width="80%" /></p>
+<div id="golden-angle" class="section level3">
+<h3>Golden Angle</h3>
+<p>Plants arrange their leaves in spirals. A spiral is a curve which starts from the origin and moves away from this point as it revolves around it. In the plot above all our points are at the same distance from the origin. A simple way to arrange them in a spiral is to multiply x and y by a factor which increases for each point. We could use t as that factor, as it meets these conditions, but we will do something more harmonious. We will use the Golden Angle:</p>
+<p>Golden Angle = π(3 − √5)</p>
+<p>This number is inspired by the Golden Ratio, one of the most famous numbers in the history of mathematics. Both the Golden Ratio and the Golden Angle appear in unexpected places in nature. Apart of flower petals and plant leaves, you’ll find them in seed heads, pine cones, sunflower seeds, shells, spiral galaxies, hurricanes, etc.</p>
+<pre class="r"><code># Defining the number of points
+points = 500
+
+# Defining the Golden Angle
+angle = pi * (3 - sqrt(5))
+
+t &lt;- (1:points) * angle
+x &lt;- sin(t)
+y &lt;- cos(t)
+df &lt;- data.frame(t, x, y)
+
+# Make a scatter plot of points in a spiral
+p &lt;- ggplot(df, aes(x*t, y*t))
+p + geom_point()</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-2-1.png" width="80%" /></p>
+</div>
+<div id="time-to-clean-up" class="section level3">
+<h3>Time to clean up!</h3>
+<p>The code below sets the background color to white, and removes all elements of the x and y axes.</p>
+<pre class="r"><code>df &lt;- data.frame(t, x, y)
+
+# Make a scatter plot of points in a spiral
+p &lt;- ggplot(df, aes(x*t, y*t))
+p + geom_point() + theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-3-1.png" width="80%" /></p>
+</div>
+<div id="coloring" class="section level3">
+<h3>Coloring</h3>
+<p>Simply playing around the color schemes to get a good feel</p>
+<pre class="r"><code>p &lt;- ggplot(df, aes(x*t, y*t))
+p + geom_point(size = 8, alpha = 0.5, color = &quot;darkgreen&quot;) + theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-4-1.png" width="80%" /></p>
+<p>Let’s play with the aesthetics to see how our flower changes</p>
+<pre class="r"><code>p &lt;- ggplot(df, aes(x*t, y*t))
+p + geom_point(aes(size = t), color = &#39;black&#39;, alpha = 0.5, shape = 8) + theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-5-1.png" width="80%" /></p>
+<p>Let’s change the color of the points and the shape!</p>
+<pre class="r"><code>p &lt;- ggplot(df, aes(x*t, y*t))
+p + geom_point(aes(size = t), color = &#39;yellow&#39;, alpha = 0.5, shape = 17) + theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;darkmagenta&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-6-1.png" width="80%" /></p>
+</div>
+<div id="angles" class="section level3">
+<h3>Angles</h3>
+<p>These patterns are very sensitive to the angle between the points that form the spiral; small changes to the angle can generate very different images</p>
+<pre class="r"><code>angle &lt;- 2.0
+points &lt;- 1000
+
+t &lt;- (1:points)*angle
+x &lt;- sin(t)
+y &lt;- cos(t)
+
+df &lt;- data.frame(t, x, y)
+
+p &lt;- ggplot(df, aes(x*t, y*t))
+
+p + geom_point(aes(size = t), color = &#39;yellow&#39;, alpha = 0.5, shape = 17) + theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;darkmagenta&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-7-1.png" width="80%" /></p>
+</div>
+<div id="all-together" class="section level3">
+<h3>All together</h3>
+<p>Let’s increase the number of points (theoretically we can make an infinite number of patterns), change the size and color of our point.</p>
+<pre class="r"><code>angle &lt;- 13 * pi/180
+points &lt;- 2000
+
+t &lt;- (1:points)*angle
+x &lt;- sin(t)
+y &lt;- cos(t)
+
+df &lt;- data.frame(t, x, y)
+
+p &lt;- ggplot(df, aes(x*t, y*t)) 
+
+p + geom_point(size= 80, color = &#39;magenta4&#39;, alpha = 0.1, shape = 1) + theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-8-1.png" width="80%" /></p>
+<p>I hope you’ve enjoyed the journey between that simple circle and this beautiful flower!</p>
+</div>
+
+<br><br>
+<footer>
+   <br>
+  <p class="copyright text-muted" align="center">Copyright &copy; 2018 Amin Yakubu</p>
+</footer>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
