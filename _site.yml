@@ -23,7 +23,7 @@ navbar:
     href: about.html
   - text: Hobbies
     menu:
-    - text: Flowers using mathemamtics
+    - text: Flowers using mathematics
       href: flower.html
   - icon: fa-linkedin fa-lg
     href: https://www.linkedin.com/in/aminyakubu/
