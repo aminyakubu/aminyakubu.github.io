@@ -4,6 +4,9 @@ navbar:
   title: Home
   right:
   - text: Projects
+    menu: Hobbies
+    - text: A flower in the wild
+    - href: flower.html
     menu:
     - text: NYC Crime Data Analysis
       href: https://aminyakubu.github.io/nyc-crime/index.html
