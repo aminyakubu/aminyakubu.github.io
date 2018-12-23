@@ -10,14 +10,16 @@ library(tidyverse)
 library(plotly)
 ```
 
-For more information on the dataset, visit The Washington Post's GitHub page [here](https://github.com/washingtonpost/data-homicides)<p>
+The Washington Post has gathered data on homicides in 50 large U.S. cities and made the data available through GitHub. For more information on the dataset, visit The Washington Post's GitHub page [here](https://github.com/washingtonpost/data-homicides)<p>
+
+In this analysis, I am going to estimate the proportion of homicides that are unsolved and the create a plot that shows the estimates and confidence intervals(CIs) for each city. I will then subsequently use `glm` function to fit a **logistic regression** with resolved vs unresolved as the outcome and victim race, victim sex and victim age as the predictors. I will do this within a “tidy” pipeline, making use of `purrr::map`, `purrr::map2`, `list columns` and  `unnest`. 
+
+#### Description of dataset
 
 ```{r}
 hom_df = read_csv("https://raw.githubusercontent.com/washingtonpost/data-homicides/master/homicide-data.csv", col_names = TRUE) %>% 
   mutate(city_state = str_c(city, ",", " ", state))
 ```
-
-#### Description of dataset
 
 The Washington Post has collected data on `r nrow(hom_df)` criminal homicides over the past decade in 50 of the largest American cities. The dataset has `r nrow(hom_df)` observations x `r ncol(hom_df)` variables. Variables include victim information like name, age, sex, and race. Geographic information collected also include city, state, longitude and latitude information. Finally the variable `desposition` records whether the homicide case was closed without any arrest, still open with no arrest and closed due to arrest. 
 
