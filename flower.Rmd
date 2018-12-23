@@ -1,5 +1,5 @@
 ---
-title: "A flower in the wild"
+title: "Drawing flowers using mathematics"
 ---
 
 ```{r setup, include=FALSE}
