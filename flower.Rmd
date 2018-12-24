@@ -31,11 +31,11 @@ p <- ggplot(df, aes(x, y))
 p + geom_point()
 ```
 
-### Golden Angle 
+## Golden Angle 
 
 Plants arrange their leaves in spirals. A spiral is a curve which starts from the origin and moves away from this point as it revolves around it. In the plot above all our points are at the same distance from the origin. A simple way to arrange them in a spiral is to multiply x and y by a factor which increases for each point. We could use t as that factor, as it meets these conditions, but we will do something more harmonious. We will use the Golden Angle:
 
-Golden Angle = π(3 − √5)
+**Golden Angle = π(3 − √5)**
 
 This number is inspired by the Golden Ratio, one of the most famous numbers in the history of mathematics. Both the Golden Ratio and the Golden Angle appear in unexpected places in nature. Apart of flower petals and plant leaves, you'll find them in seed heads, pine cones, sunflower seeds, shells, spiral galaxies, hurricanes, etc.
 
@@ -56,7 +56,26 @@ p <- ggplot(df, aes(x*t, y*t))
 p + geom_point()
 ```
 
-### Time to clean up! 
+Let's play around! Let's try twice of the golden angle and increase the number of points by 10 times and see how things change! 
+
+```{r}
+# Defining the number of points
+points_1 = 5000
+
+# Defining the Golden Angle
+angle_1 = 2*pi * (3 - sqrt(5))
+
+t_1 <- (1:points_1) * angle_1
+x_1 <- sin(t_1)
+y_1 <- cos(t_1)
+df_1 <- data.frame(t_1, x_1, y_1)
+
+# Make a scatter plot of points in a spiral
+p <- ggplot(df_1, aes(x_1*t_1, y_1*t_1))
+p + geom_point()
+```
+
+## Time to clean up! 
 
 The code below sets the background color to white, and removes all elements of the x and y axes. 
 
@@ -73,7 +92,7 @@ p + geom_point() + theme(legend.position = "none",
         panel.background = element_rect(fill = 'white'))
 ```
 
-### Coloring
+## Coloring
 
 Simply playing around the color schemes to get a good feel 
 
@@ -111,7 +130,7 @@ p + geom_point(aes(size = t), color = 'yellow', alpha = 0.5, shape = 17) + theme
         panel.background = element_rect(fill = 'darkmagenta'))
 ```
 
-### Angles
+## Angles
 
 These patterns are very sensitive to the angle between the points that form the spiral; small changes to the angle can generate very different images
 
@@ -135,9 +154,52 @@ p + geom_point(aes(size = t), color = 'yellow', alpha = 0.5, shape = 17) + theme
         panel.background = element_rect(fill = 'darkmagenta'))
 ```
 
-### All together
+Let's change the angle and increase the number of points from 1000 to 2000. 
+```{r}
+angle <-  pi/180
+points <- 2000
 
-Let's increase the number of points (theoretically we can make an infinite number of patterns), change the size and color of our point. 
+t <- (1:points)*angle
+x <- sin(t)
+y <- cos(t)
+
+df <- data.frame(t, x, y)
+
+p <- ggplot(df, aes(x*t, y*t)) 
+
+p + geom_point(size= 80, color = 'magenta4', alpha = 0.1, shape = 1) + theme(legend.position = "none",
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = 'white'))
+```
+
+More fun with angles!
+
+```{r}
+angle <- 12 * pi/180
+points <- 2000
+
+t <- (1:points)*angle
+x <- sin(t)
+y <- cos(t)
+
+df <- data.frame(t, x, y)
+
+p <- ggplot(df, aes(x*t, y*t)) 
+
+p + geom_point(size = 80, color = 'magenta4', alpha = 0.1, shape = 1) + theme(legend.position = "none",
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = 'white'))
+```
+
+## All together
+
+Let's set the number of points to 2000 (theoretically we can make an infinite number of patterns), change the size and color of our points. 
 
 ```{r}
 angle <- 13 * pi/180
@@ -160,31 +222,3 @@ p + geom_point(size= 80, color = 'magenta4', alpha = 0.1, shape = 1) + theme(leg
 ```
 
 I hope you've enjoyed the journey between that simple circle and this beautiful flower! 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -284,10 +284,10 @@ df &lt;- data.frame(t, x, y)
 p &lt;- ggplot(df, aes(x, y))
 p + geom_point()</code></pre>
 <p><img src="flower_files/figure-html/unnamed-chunk-1-1.png" width="80%" /></p>
-<div id="golden-angle" class="section level3">
-<h3>Golden Angle</h3>
+<div id="golden-angle" class="section level2">
+<h2>Golden Angle</h2>
 <p>Plants arrange their leaves in spirals. A spiral is a curve which starts from the origin and moves away from this point as it revolves around it. In the plot above all our points are at the same distance from the origin. A simple way to arrange them in a spiral is to multiply x and y by a factor which increases for each point. We could use t as that factor, as it meets these conditions, but we will do something more harmonious. We will use the Golden Angle:</p>
-<p>Golden Angle = π(3 − √5)</p>
+<p><strong>Golden Angle = π(3 − √5)</strong></p>
 <p>This number is inspired by the Golden Ratio, one of the most famous numbers in the history of mathematics. Both the Golden Ratio and the Golden Angle appear in unexpected places in nature. Apart of flower petals and plant leaves, you’ll find them in seed heads, pine cones, sunflower seeds, shells, spiral galaxies, hurricanes, etc.</p>
 <pre class="r"><code># Defining the number of points
 points = 500
@@ -304,9 +304,25 @@ df &lt;- data.frame(t, x, y)
 p &lt;- ggplot(df, aes(x*t, y*t))
 p + geom_point()</code></pre>
 <p><img src="flower_files/figure-html/unnamed-chunk-2-1.png" width="80%" /></p>
+<p>Let’s play around! Let’s try twice of the golden angle and increase the number of points by 10 times and see how things change!</p>
+<pre class="r"><code># Defining the number of points
+points_1 = 5000
+
+# Defining the Golden Angle
+angle_1 = 2*pi * (3 - sqrt(5))
+
+t_1 &lt;- (1:points_1) * angle_1
+x_1 &lt;- sin(t_1)
+y_1 &lt;- cos(t_1)
+df_1 &lt;- data.frame(t_1, x_1, y_1)
+
+# Make a scatter plot of points in a spiral
+p &lt;- ggplot(df_1, aes(x_1*t_1, y_1*t_1))
+p + geom_point()</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-3-1.png" width="80%" /></p>
 </div>
-<div id="time-to-clean-up" class="section level3">
-<h3>Time to clean up!</h3>
+<div id="time-to-clean-up" class="section level2">
+<h2>Time to clean up!</h2>
 <p>The code below sets the background color to white, and removes all elements of the x and y axes.</p>
 <pre class="r"><code>df &lt;- data.frame(t, x, y)
 
@@ -318,10 +334,10 @@ p + geom_point() + theme(legend.position = &quot;none&quot;,
         axis.text = element_blank(),
         axis.ticks = element_blank(),
         panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
-<p><img src="flower_files/figure-html/unnamed-chunk-3-1.png" width="80%" /></p>
+<p><img src="flower_files/figure-html/unnamed-chunk-4-1.png" width="80%" /></p>
 </div>
-<div id="coloring" class="section level3">
-<h3>Coloring</h3>
+<div id="coloring" class="section level2">
+<h2>Coloring</h2>
 <p>Simply playing around the color schemes to get a good feel</p>
 <pre class="r"><code>p &lt;- ggplot(df, aes(x*t, y*t))
 p + geom_point(size = 8, alpha = 0.5, color = &quot;darkgreen&quot;) + theme(legend.position = &quot;none&quot;,
@@ -330,7 +346,7 @@ p + geom_point(size = 8, alpha = 0.5, color = &quot;darkgreen&quot;) + theme(leg
         axis.text = element_blank(),
         axis.ticks = element_blank(),
         panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
-<p><img src="flower_files/figure-html/unnamed-chunk-4-1.png" width="80%" /></p>
+<p><img src="flower_files/figure-html/unnamed-chunk-5-1.png" width="80%" /></p>
 <p>Let’s play with the aesthetics to see how our flower changes</p>
 <pre class="r"><code>p &lt;- ggplot(df, aes(x*t, y*t))
 p + geom_point(aes(size = t), color = &#39;black&#39;, alpha = 0.5, shape = 8) + theme(legend.position = &quot;none&quot;,
@@ -339,7 +355,7 @@ p + geom_point(aes(size = t), color = &#39;black&#39;, alpha = 0.5, shape = 8) +
         axis.text = element_blank(),
         axis.ticks = element_blank(),
         panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
-<p><img src="flower_files/figure-html/unnamed-chunk-5-1.png" width="80%" /></p>
+<p><img src="flower_files/figure-html/unnamed-chunk-6-1.png" width="80%" /></p>
 <p>Let’s change the color of the points and the shape!</p>
 <pre class="r"><code>p &lt;- ggplot(df, aes(x*t, y*t))
 p + geom_point(aes(size = t), color = &#39;yellow&#39;, alpha = 0.5, shape = 17) + theme(legend.position = &quot;none&quot;,
@@ -348,10 +364,10 @@ p + geom_point(aes(size = t), color = &#39;yellow&#39;, alpha = 0.5, shape = 17)
         axis.text = element_blank(),
         axis.ticks = element_blank(),
         panel.background = element_rect(fill = &#39;darkmagenta&#39;))</code></pre>
-<p><img src="flower_files/figure-html/unnamed-chunk-6-1.png" width="80%" /></p>
+<p><img src="flower_files/figure-html/unnamed-chunk-7-1.png" width="80%" /></p>
 </div>
-<div id="angles" class="section level3">
-<h3>Angles</h3>
+<div id="angles" class="section level2">
+<h2>Angles</h2>
 <p>These patterns are very sensitive to the angle between the points that form the spiral; small changes to the angle can generate very different images</p>
 <pre class="r"><code>angle &lt;- 2.0
 points &lt;- 1000
@@ -370,11 +386,49 @@ p + geom_point(aes(size = t), color = &#39;yellow&#39;, alpha = 0.5, shape = 17)
         axis.text = element_blank(),
         axis.ticks = element_blank(),
         panel.background = element_rect(fill = &#39;darkmagenta&#39;))</code></pre>
-<p><img src="flower_files/figure-html/unnamed-chunk-7-1.png" width="80%" /></p>
+<p><img src="flower_files/figure-html/unnamed-chunk-8-1.png" width="80%" /></p>
+<p>Let’s change the angle and increase the number of points from 1000 to 2000.</p>
+<pre class="r"><code>angle &lt;-  pi/180
+points &lt;- 2000
+
+t &lt;- (1:points)*angle
+x &lt;- sin(t)
+y &lt;- cos(t)
+
+df &lt;- data.frame(t, x, y)
+
+p &lt;- ggplot(df, aes(x*t, y*t)) 
+
+p + geom_point(size= 80, color = &#39;magenta4&#39;, alpha = 0.1, shape = 1) + theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-9-1.png" width="80%" /></p>
+<p>More fun with angles!</p>
+<pre class="r"><code>angle &lt;- 12 * pi/180
+points &lt;- 2000
+
+t &lt;- (1:points)*angle
+x &lt;- sin(t)
+y &lt;- cos(t)
+
+df &lt;- data.frame(t, x, y)
+
+p &lt;- ggplot(df, aes(x*t, y*t)) 
+
+p + geom_point(size = 80, color = &#39;magenta4&#39;, alpha = 0.1, shape = 1) + theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-10-1.png" width="80%" /></p>
 </div>
-<div id="all-together" class="section level3">
-<h3>All together</h3>
-<p>Let’s increase the number of points (theoretically we can make an infinite number of patterns), change the size and color of our point.</p>
+<div id="all-together" class="section level2">
+<h2>All together</h2>
+<p>Let’s set the number of points to 2000 (theoretically we can make an infinite number of patterns), change the size and color of our points.</p>
 <pre class="r"><code>angle &lt;- 13 * pi/180
 points &lt;- 2000
 
@@ -392,7 +446,7 @@ p + geom_point(size= 80, color = &#39;magenta4&#39;, alpha = 0.1, shape = 1) + t
         axis.text = element_blank(),
         axis.ticks = element_blank(),
         panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
-<p><img src="flower_files/figure-html/unnamed-chunk-8-1.png" width="80%" /></p>
+<p><img src="flower_files/figure-html/unnamed-chunk-11-1.png" width="80%" /></p>
 <p>I hope you’ve enjoyed the journey between that simple circle and this beautiful flower!</p>
 </div>
 
