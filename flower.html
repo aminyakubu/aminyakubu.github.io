@@ -274,11 +274,14 @@ $(document).ready(function () {
 
 
 <p>For the love of arts, I’m going to make a flower in R.</p>
-<p>Let’s start by drawing 50 points on a circle of radius 1. As every (x, y) point should be in the unit circle, it follows that x² + y² = 1.We can get this using the Pythagorean trigonometric identity which states that sin²(θ) + cos²(θ) = 1 for any real number θ.</p>
-<pre class="r"><code>t &lt;- seq(0, 2*pi, length.out = 50)
+<p>Let’s start by drawing 50 points on a circle of radius 1. As every (x, y) point should be in the unit circle, it follows that x² + y² = 1. We can get this using the Pythagorean trigonometric identity which states that sin²(θ) + cos²(θ) = 1 for any real number θ.</p>
+<p>It is important to know that in <code>geom_point</code>, the size of the circles are related to the coordinate system and not to a separate scale. So you don’t specify the radius. We will how to radius later.</p>
+<pre class="r"><code>library(tidyverse)
+
+t &lt;- seq(0, 2*pi, length.out = 50)
 x &lt;- sin(t)
 y &lt;- cos(t)
-df &lt;- data.frame(t, x, y)
+df &lt;- tibble(t, x, y)
 
 # Make a scatter plot of points in a circle
 p &lt;- ggplot(df, aes(x, y))
@@ -286,9 +289,9 @@ p + geom_point()</code></pre>
 <p><img src="flower_files/figure-html/unnamed-chunk-1-1.png" width="80%" /></p>
 <div id="golden-angle" class="section level2">
 <h2>Golden Angle</h2>
-<p>Plants arrange their leaves in spirals. A spiral is a curve which starts from the origin and moves away from this point as it revolves around it. In the plot above all our points are at the same distance from the origin. A simple way to arrange them in a spiral is to multiply x and y by a factor which increases for each point. We could use t as that factor, as it meets these conditions, but we will do something more harmonious. We will use the Golden Angle:</p>
+<p>The arrangement of leaves and many other things in nature is spiral. Check out <a href="https://en.wikipedia.org/wiki/Patterns_in_nature">this</a> article on patterns in nature. A spiral starts from the origin and moves away from this point as it revolves around it. In the plot above all our points are at the same distance from the origin. A simple way to arrange them in a spiral is to multiply x and y by a factor which increases for each point. We could use t as that factor, as it meets these conditions, but we will do something more harmonious. We will use the Golden Angle:</p>
 <p><strong>Golden Angle = π(3 − √5)</strong></p>
-<p>This number is inspired by the Golden Ratio, one of the most famous numbers in the history of mathematics. Both the Golden Ratio and the Golden Angle appear in unexpected places in nature. Apart of flower petals and plant leaves, you’ll find them in seed heads, pine cones, sunflower seeds, shells, spiral galaxies, hurricanes, etc.</p>
+<p>This number is inspired by the <a href="https://en.wikipedia.org/wiki/Golden_ratio">Golden Ratio</a>, one of the most famous numbers in the history of mathematics. Apart of flower petals and plant leaves, you’ll find them in seed heads, pine cones, sunflower seeds, shells, spiral galaxies, hurricanes, etc.</p>
 <pre class="r"><code># Defining the number of points
 points = 500
 
@@ -338,56 +341,20 @@ p + geom_point() + theme(legend.position = &quot;none&quot;,
 </div>
 <div id="coloring" class="section level2">
 <h2>Coloring</h2>
-<p>Simply playing around the color schemes to get a good feel</p>
+<p>Simply playing around the <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/colour">color schemes</a> and <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/shape">shapes</a> to get a good feel.</p>
 <pre class="r"><code>p &lt;- ggplot(df, aes(x*t, y*t))
-p + geom_point(size = 8, alpha = 0.5, color = &quot;darkgreen&quot;) + theme(legend.position = &quot;none&quot;,
+p + geom_point(size = 3, alpha = 0.5, shape = 22, fill = &quot;darkcyan&quot;) + theme(legend.position = &quot;none&quot;,
         panel.grid = element_blank(),
         axis.title = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank(),
         panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
 <p><img src="flower_files/figure-html/unnamed-chunk-5-1.png" width="80%" /></p>
-<p>Let’s play with the aesthetics to see how our flower changes</p>
-<pre class="r"><code>p &lt;- ggplot(df, aes(x*t, y*t))
-p + geom_point(aes(size = t), color = &#39;black&#39;, alpha = 0.5, shape = 8) + theme(legend.position = &quot;none&quot;,
-        panel.grid = element_blank(),
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
-<p><img src="flower_files/figure-html/unnamed-chunk-6-1.png" width="80%" /></p>
-<p>Let’s change the color of the points and the shape!</p>
-<pre class="r"><code>p &lt;- ggplot(df, aes(x*t, y*t))
-p + geom_point(aes(size = t), color = &#39;yellow&#39;, alpha = 0.5, shape = 17) + theme(legend.position = &quot;none&quot;,
-        panel.grid = element_blank(),
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        panel.background = element_rect(fill = &#39;darkmagenta&#39;))</code></pre>
-<p><img src="flower_files/figure-html/unnamed-chunk-7-1.png" width="80%" /></p>
 </div>
 <div id="angles" class="section level2">
 <h2>Angles</h2>
 <p>These patterns are very sensitive to the angle between the points that form the spiral; small changes to the angle can generate very different images</p>
-<pre class="r"><code>angle &lt;- 2.0
-points &lt;- 1000
-
-t &lt;- (1:points)*angle
-x &lt;- sin(t)
-y &lt;- cos(t)
-
-df &lt;- data.frame(t, x, y)
-
-p &lt;- ggplot(df, aes(x*t, y*t))
-
-p + geom_point(aes(size = t), color = &#39;yellow&#39;, alpha = 0.5, shape = 17) + theme(legend.position = &quot;none&quot;,
-        panel.grid = element_blank(),
-        axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank(),
-        panel.background = element_rect(fill = &#39;darkmagenta&#39;))</code></pre>
-<p><img src="flower_files/figure-html/unnamed-chunk-8-1.png" width="80%" /></p>
-<p>Let’s change the angle and increase the number of points from 1000 to 2000.</p>
+<p>Let’s change the angle and increase the number of points from to 2000.</p>
 <pre class="r"><code>angle &lt;-  pi/180
 points &lt;- 2000
 
@@ -405,8 +372,43 @@ p + geom_point(size= 80, color = &#39;magenta4&#39;, alpha = 0.1, shape = 1) + t
         axis.text = element_blank(),
         axis.ticks = element_blank(),
         panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-6-1.png" width="80%" /></p>
+</div>
+<div id="other-options" class="section level2">
+<h2>Other options</h2>
+<p>If we wanted to specify the radius we can use <code>geom_circle</code> which is in the <code>ggforce</code> package. For example, we could specify a circle with start coordinates of (3,4) and radius of 1.</p>
+<pre class="r"><code>library(ggforce)
+# Lets make some data
+circles &lt;- tibble(x0 = 3, y0 = 4,r = 1)
+
+# Behold the some circles
+ggplot() + geom_circle(aes(x0 = x0, y0 = y0, r = r), data = circles)</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-7-1.png" width="80%" /></p>
+Let’s draw many circles and make some cool stuff! You can find the original mathematical formula I used to create the dataset <a href="https://www.huffingtonpost.com/hamid-naderi-yeganeh/flowers_b_9817126.html">here</a>. I modified a bit.
+<p>
+<p>Let’s use <code>geom_point</code> first for the sake of comparison. Remember, the size of the circles are related to the coordinate system and not to a separate scale.</p>
+<pre class="r"><code>df_ggf = tibble(circle = seq(1:2500),
+            x = cos((14 * pi * circle) / 2500) * (1 - (3/4)*(sin((20 * pi * circle) / 2500))^4 - (1/4)*(cos((60 * pi * circle) / 2500)) ^ 3),
+            y = sin(14 * pi * circle/2500)*(1 - (3/4)*(sin(20*pi*circle/2500)) ^ 4 - (1/4)*(cos(60 * pi*circle/2500)) ^ 3),
+            r = (1/120) + (1/18)*(sin(60 * pi * circle/2500))^4 + (1/18)*(sin(160*pi*circle/2500))^4)
+
+ggplot(df_ggf, aes(x, y)) + geom_point() + theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;white&#39;))</code></pre>
+<p><img src="flower_files/figure-html/unnamed-chunk-8-1.png" width="80%" /></p>
+<p>With the same dataset, let’s how to render it using <code>geom_circle</code>. Here, we many many different cirles put together. Every observation is a circle.</p>
+<pre class="r"><code>ggplot() + geom_circle(aes(x0 = x, y0 = y, r = r, fill = r), data = df_ggf) +
+  theme(legend.position = &quot;none&quot;,
+        panel.grid = element_blank(),
+        axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        panel.background = element_rect(fill = &#39;white&#39;)) + viridis::scale_fill_viridis()</code></pre>
 <p><img src="flower_files/figure-html/unnamed-chunk-9-1.png" width="80%" /></p>
-<p>More fun with angles!</p>
+<p>Now that was a detour. Let’s get back to our original flower. Let’s have some more fun with angles!</p>
 <pre class="r"><code>angle &lt;- 12 * pi/180
 points &lt;- 2000
 
