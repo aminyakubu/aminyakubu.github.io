@@ -7,18 +7,16 @@ navbar:
     menu:
     - text: NYC Crime Data Analysis
       href: https://aminyakubu.github.io/nyc-crime/index.html
-    - text: NY NOAA
-      href: noaa.html
-    - text: Alcohol & Hypertension
-      href: alchohol_hypertension.html
     - text: Unsolved Homicides in 50 US Cities
       href: unsolved_homicide.html
-    - text: NYC AirBnB
-      href: airbnb.html
+    - text: Alcohol & Hypertension
+      href: alchohol_hypertension.html
     - text: White House Gender Pay Gap
       href: whpaygap.html
-    - text: Baltimore Inner Harbor Water Wheel
-      href: trashwheel.html
+    - text: NYC AirBnB
+      href: airbnb.html
+    - text: NY NOAA
+      href: noaa.html
   - text: Curriculum vitae
     href: about.html
   - text: Hobbies
