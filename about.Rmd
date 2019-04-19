@@ -6,7 +6,7 @@ output:
     toc_float: true
 ---
 
-My full CV is available [here](downloads/amin_yakubu.pdf) <br>
+My full CV is available [here](downloads/amin.pdf) <br>
 
 ### Education 
 <p>**Columbia University Mailman School of Public Health '19** <br>
