@@ -6,8 +6,6 @@ output:
     toc_float: true
 ---
 
-My full CV is available [here](downloads/ay.pdf) <br>
-
 ### Education 
 <p>**Columbia University Mailman School of Public Health '19** <br>
 Master of Public Health (MPH) 
